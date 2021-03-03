@@ -6,74 +6,46 @@ import 'package:gpluseclinicapp/service/gplusapi.dart';
 import 'package:gpluseclinicapp/view/hom_view.dart';
 import 'package:provider/provider.dart';
 import 'package:gpluseclinicapp/view_models/list_of_city_view_model.dart';
-void main() {
-  runApp(MyApp());
-}
+
+void main() => runApp(MyApp());
+
 class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'gplusclinic',
-    home: MainPage(),
-    );
-  }
-}
-
-class MainPage extends StatefulWidget {
-  @override
-  _MainPageState createState() => _MainPageState();
-}
-
-class _MainPageState extends State<MainPage> {
-  @override
-  void initState()
-  {
-    super.initState();
-    var prov= Provider.of<CityListViewModel>(context,listen: false);
-
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    City selectedValue;
-    List<City> citis;
-    var prov= Provider.of<CityListViewModel>(context,listen: false);
-
-    return ChangeNotifierProvider<CityListViewModel>(
-
-        create: (context) => CityListViewModel(),
-        child: MaterialApp(
-            home: Scaffold(
-      appBar: AppBar(
-        title: Center(
-          child: Text("gplusclinic",style: TextStyle(fontSize: 14))
+        debugShowCheckedModeBanner: false,
+        title: 'News',
+        theme: ThemeData(
+          scaffoldBackgroundColor: Color(0xffFEFDFD),
+          appBarTheme: AppBarTheme(
+            color: Color(0xffFEFDFD),
+            elevation: 0,
+            textTheme: TextTheme(
+              title: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            iconTheme: IconThemeData(
+              color: Colors.black,
+            ),
+            actionsIconTheme: IconThemeData(
+              color: Colors.black,
+            ),
+          ),
         ),
-      ),
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        child: Column(
-          children:<Widget> [
-            DropdownButton<City>(
+        home: MultiProvider(
+          providers: [
+            ChangeNotifierProvider(
+              create: (_) => CityListViewModel(),
 
-              isExpanded: true,
-                hint: Text(prov.citiesList.length.toString()),
-                value: selectedValue,
-                items: citis.map((City ct){
-                  return DropdownMenuItem<City>(
-                    value: ct,
-                      child: Text("dsa"));
-                }).toList(),
-
-
-
+            ),
+            ChangeNotifierProvider(
+              create: (_) => CityListViewModel(),
             )
-
           ],
-        ),
-      ),
-    )
-    )
-    );
+          child: HomePage(),
+        ));
   }
 }
