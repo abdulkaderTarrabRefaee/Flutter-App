@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:gpluseclinicapp/model/city/city.dart';
 import 'package:gpluseclinicapp/model/disease/disease.dart';
+import 'package:gpluseclinicapp/service/gplusapi.dart';
 import 'package:gpluseclinicapp/view_models/list_of_disease_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:gpluseclinicapp/view_models/list_of_city_view_model.dart';
@@ -17,10 +18,11 @@ class _HomePageState extends State<HomePage> {
 
   City  dropdownCitySelected ;
   Disease dropdownDiseaseSelected;
-
   @override
   void initState() {
     super.initState();
+    GplusApi gplusApi=new GplusApi();
+    gplusApi.fetchDataSearch();
     Provider.of<CityListViewModel>(context, listen: false)
         .fetchCity();
     Provider.of<DiseaseListViewModel>(context, listen: false)
