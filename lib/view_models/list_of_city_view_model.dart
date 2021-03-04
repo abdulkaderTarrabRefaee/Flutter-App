@@ -6,7 +6,7 @@ class CityListViewModel extends ChangeNotifier
   List<City> _citiesList=[];
   fetchCity() async
   {
-    _citiesList =await Gplus_api().fetchCity();
+    _citiesList =await GplusApi().fetchCity();
     notifyListeners();
   }
   List<City> get citiesList => _citiesList;

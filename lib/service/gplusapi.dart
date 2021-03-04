@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:gpluseclinicapp/model/city/city.dart';
 import 'package:gpluseclinicapp/model/disease/disease.dart';
-import 'package:gpluseclinicapp/model/disease/diseaslist.dart';
+import 'package:gpluseclinicapp/model/disease/diseas_list.dart';
 import 'package:http/http.dart' as http;
 import 'package:gpluseclinicapp/model/city/city_list.dart';
 
@@ -10,11 +10,10 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-class Gplus_api {
-
+class GplusApi {
   final String apiKey = 'd8e093f3-9a0f-489e-87b8-12a892320900';
-  final String url='http://api.gplusclinic.com/api/homepage/2';
-  Future<List<City>> fetchCity() async {
+  final String url='http://api.gplusclinic.com/api/homepage/3';
+   fetchCity() async {
     try {
 
       http.Response response = await http.get(
@@ -40,7 +39,7 @@ class Gplus_api {
       print(ex);
     }
   }
-  Future<List<Disease>> fetchDisease() async {
+  fetchDisease() async {
     try {
 
       http.Response response = await http.get(
