@@ -1,16 +1,12 @@
 import 'dart:convert';
-import 'dart:math';
 import 'package:gpluseclinicapp/model/city/city.dart';
-import 'package:gpluseclinicapp/model/data_gplus/data_gplus.dart';
-import 'package:gpluseclinicapp/model/data_gplus/data_gplus_list.dart';
+import 'package:gpluseclinicapp/model/data_gplus/data_search.dart';
+import 'package:gpluseclinicapp/model/data_gplus/data_search_list.dart';
 import 'package:gpluseclinicapp/model/disease/disease.dart';
 import 'package:gpluseclinicapp/model/disease/diseas_list.dart';
 import 'package:http/http.dart' as http;
 import 'package:gpluseclinicapp/model/city/city_list.dart';
 
-import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 
 class GplusApi {
   final String apiKey = 'd8e093f3-9a0f-489e-87b8-12a892320900';
@@ -70,7 +66,6 @@ class GplusApi {
     }
   }
   fetchDataSearch() async {
-    try {
 
       http.Response response = await http.get(
           searchUrl,
@@ -82,18 +77,16 @@ class GplusApi {
       if (response.statusCode == 200) {
         String data = response.body;
         var jsonData = jsonDecode(data);
-        DataGplusList dataGplusList =DataGplusList.fromJson(jsonData);
-        List<dynamic> GplusListData =
-        dataGplusList.dataGpList.map((e) => DataGplus.fromJson(e)).toList();
-        print(GplusListData.length);
-        return GplusListData;
+        HospitalDoctorClinicList hospitalDoctorClinicListMap =HospitalDoctorClinicList.fromJson(jsonData);
+        List<dynamic> hospitalDoctorClinicLists =
+        hospitalDoctorClinicListMap.hospitalDoctorClinicList.map((e) => HospitalDoctorClinic.fromJson(e)).toList();
+        print(hospitalDoctorClinicLists);
+        return hospitalDoctorClinicLists;
       }
       else
       {
         print('status code = ${response.statusCode}');
       }
-    } catch (ex) {
-      print(ex);
-    }
+
   }
 }

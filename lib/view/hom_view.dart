@@ -1,9 +1,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:gpluseclinicapp/model/city/city.dart';
+import 'package:gpluseclinicapp/model/data_gplus/data_search.dart';
 import 'package:gpluseclinicapp/model/disease/disease.dart';
 import 'package:gpluseclinicapp/service/gplusapi.dart';
 import 'package:gpluseclinicapp/view_models/list_of_disease_view_model.dart';
+import 'package:gpluseclinicapp/view_models/list_of_hos_dr_cl.dart';
 import 'package:provider/provider.dart';
 import 'package:gpluseclinicapp/view_models/list_of_city_view_model.dart';
 import 'package:searchable_dropdown/searchable_dropdown.dart';
@@ -18,15 +20,18 @@ class _HomePageState extends State<HomePage> {
 
   City  dropdownCitySelected ;
   Disease dropdownDiseaseSelected;
+  List<HospitalDoctorClinic> hospitalDoctorClinic;
+
+
   @override
   void initState() {
     super.initState();
-    GplusApi gplusApi=new GplusApi();
-    gplusApi.fetchDataSearch();
     Provider.of<CityListViewModel>(context, listen: false)
         .fetchCity();
     Provider.of<DiseaseListViewModel>(context, listen: false)
         .fetchDisease();
+    Provider.of<HospitalDoctorClinicViewModel>(context, listen: false)
+        .fetchHospitalDoctorClinic();
   }
 
   Widget _buildList(CityListViewModel vs) {
@@ -38,6 +43,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     var cityProvider = Provider.of<CityListViewModel>(context);
     var diseaseProvider = Provider.of<DiseaseListViewModel>(context);
+    var hospitalDoctorClinic= Provider.of<HospitalDoctorClinicViewModel>(context);
     return Scaffold(
       appBar: AppBar(
        title:  _buildList(cityProvider),
@@ -83,7 +89,7 @@ class _HomePageState extends State<HomePage> {
             },
           ),
           Center(
-            child: MyButton(dropdownCitySelected,dropdownDiseaseSelected),
+            child: MyButton(dropdownCitySelected,dropdownDiseaseSelected,hospitalDoctorClinic.hospitalDoctorClinicList),
           ),
 
         ],
@@ -104,8 +110,10 @@ void Search(City dropdownCitySelected ,Disease dropdownDiseaseSelected)
 class MyButton extends StatelessWidget {
   City dropdownCitySelected;
   Disease dropdownDiseaseSelected;
+  List<HospitalDoctorClinic> hospitalDoctorClinic;
 
-  MyButton(this.dropdownCitySelected, this.dropdownDiseaseSelected);
+
+  MyButton(this.dropdownCitySelected, this.dropdownDiseaseSelected,this.hospitalDoctorClinic);
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +122,7 @@ class MyButton extends StatelessWidget {
       // When the user taps the button, show a snackbar.
       onTap: () {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("The city is :"+ dropdownCitySelected.name +" and The Disease is :" + dropdownDiseaseSelected.name ),
+          content: Text("The city is :"+ dropdownCitySelected.name +" and The Disease is :" + dropdownDiseaseSelected.name+ " Doktor is: "+ hospitalDoctorClinic.first.name ),
         ));
       },
       child: Container(

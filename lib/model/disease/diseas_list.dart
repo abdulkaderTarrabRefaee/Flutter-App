@@ -1,4 +1,3 @@
-import 'package:gpluseclinicapp/model/disease/disease.dart';
 
 class DiseaseList {
   final List<dynamic> disease;
