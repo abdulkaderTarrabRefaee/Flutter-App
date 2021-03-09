@@ -10,9 +10,9 @@ import 'package:gpluseclinicapp/model/city/city_list.dart';
 
 class GplusApi {
   final String apiKey = 'd8e093f3-9a0f-489e-87b8-12a892320900';
-  final String url='http://api.gplusclinic.com/api/homepage/3';
-  final String searchUrl='http://api.gplusclinic.com/api/SearchPage?city=&page=1&medicalUnit=&type=0';
-
+  final String url='http://api.gplusclinic.com/api/homepage/2';
+  City  dropdownCitySelected ;
+  Disease dropdownDiseaseSelected;
   fetchCity() async {
     try {
 
@@ -65,9 +65,11 @@ class GplusApi {
       print(ex);
     }
   }
-  fetchDataSearch() async {
+  fetchDataSearch( dropdownCitySelected, dropdownDiseaseSelected) async {
+     String searchUrl='http://api.gplusclinic.com/api/SearchPage?city='+ dropdownCitySelected.name.toLowerCase() +'&page=1&medicalUnit='+ dropdownDiseaseSelected.group_id.toLowerCase() +'&type=0';
 
-      http.Response response = await http.get(
+
+     http.Response response = await http.get(
           searchUrl,
           headers: {'Apikey': apiKey,
             'Connection':'keep-alive',
@@ -78,9 +80,8 @@ class GplusApi {
         String data = response.body;
         var jsonData = jsonDecode(data);
         HospitalDoctorClinicList hospitalDoctorClinicListMap =HospitalDoctorClinicList.fromJson(jsonData);
-        List<dynamic> hospitalDoctorClinicLists =
+        List<HospitalDoctorClinic> hospitalDoctorClinicLists =
         hospitalDoctorClinicListMap.hospitalDoctorClinicList.map((e) => HospitalDoctorClinic.fromJson(e)).toList();
-        print(hospitalDoctorClinicLists);
         return hospitalDoctorClinicLists;
       }
       else

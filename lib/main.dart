@@ -3,7 +3,7 @@ import 'package:gpluseclinicapp/model/city/city.dart';
 import 'package:gpluseclinicapp/model/disease/disease.dart';
 import 'package:gpluseclinicapp/service/gplusapi.dart';
 import 'package:gpluseclinicapp/service/gplusapi.dart';
-import 'package:gpluseclinicapp/view/hom_view.dart';
+import 'package:gpluseclinicapp/view/home_view.dart';
 import 'package:gpluseclinicapp/view_models/list_of_hos_dr_cl.dart';
 import 'package:provider/provider.dart';
 import 'package:gpluseclinicapp/view_models/list_of_city_view_model.dart';
@@ -55,8 +55,9 @@ class MyApp extends StatelessWidget {
           ],
 
 
-          child: HomePage(),
+          child: HomeView(),
 
-        ));
+        )
+    );
   }
 }
