@@ -11,8 +11,7 @@ import 'package:gpluseclinicapp/model/city/city_list.dart';
 class GplusApi {
   final String apiKey = 'd8e093f3-9a0f-489e-87b8-12a892320900';
   final String url='http://api.gplusclinic.com/api/homepage/2';
-  City  dropdownCitySelected ;
-  Disease dropdownDiseaseSelected;
+
   fetchCity() async {
     try {
 
@@ -65,10 +64,9 @@ class GplusApi {
       print(ex);
     }
   }
-  fetchDataSearch( dropdownCitySelected, dropdownDiseaseSelected) async {
+ Future<List<HospitalDoctorClinic>> fetchDataSearch( dropdownCitySelected, dropdownDiseaseSelected) async
+  {
      String searchUrl='http://api.gplusclinic.com/api/SearchPage?city='+ dropdownCitySelected.name.toLowerCase() +'&page=1&medicalUnit='+ dropdownDiseaseSelected.group_id.toLowerCase() +'&type=0';
-
-
      http.Response response = await http.get(
           searchUrl,
           headers: {'Apikey': apiKey,
