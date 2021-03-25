@@ -10,9 +10,6 @@ import 'package:gpluseclinicapp/view_models/list_of_hos_dr_cl.dart';
 import 'package:provider/provider.dart';
 import 'package:gpluseclinicapp/view_models/list_of_city_view_model.dart';
 import 'package:searchable_dropdown/searchable_dropdown.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/material.dart';
-import 'package:splashscreen/splashscreen.dart';
 class HomeView extends StatefulWidget {
   @override
   _HomeViewState createState() => _HomeViewState();
@@ -43,14 +40,10 @@ class _HomeViewState extends State<HomeView> {
     Provider.of<DiseaseListViewModel>(context, listen: false)
         .fetchDisease();
     Provider.of<HospitalDoctorClinicViewModel>(context, listen: false);
-    super.initState();
+    Provider.of<CityHospitalDoctorClinicViewModel>(context,listen: false)
+        .fetchHospitalDoctorClinic();
   }
 
-  Widget _buildList(CityListViewModel vs) {
-    return Center(
-      child: Text(vs.citiesList.length.toString()),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,11 +53,9 @@ class _HomeViewState extends State<HomeView> {
     void clearData()
     {
 
-        // ignore: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
-      hospitalDoctorClinic.hospitalDoctorClinicList.clear();
+     hospitalDoctorClinic.hospitalDoctorClinicList.clear();
      print("size" + hospitalDoctorClinic.hospitalDoctorClinicList.length.toString());
-
-      print("data clear");
+     print("data clear");
 
     }
     return Scaffold(
@@ -115,49 +106,19 @@ class _HomeViewState extends State<HomeView> {
                       });
                     },
                   ),
-                  InkWell(
-                    // When the user taps the button, show a snackbar.
+                InkWell(
+                  // When the user taps the button, show a snackbar.
+                  onTap: () {
 
-                      onTap: () {
-                        showToast(true);
-                        hospitalDoctorClinic.
-                        fetchHospitalDoctorClinic(
-                            dropdownCitySelected
-                            , dropdownDiseaseSelected);
-                        Timer(Duration(milliseconds: 2000), () {
-                          if(hospitalDoctorClinic.hospitalDoctorClinicList.isEmpty)
-                            {
-                              print("data not found");
-                              showToast(false);
-                            }
-                          else{
-                            _showResultSearch(context,
-                                hospitalDoctorClinic
-                                    .hospitalDoctorClinicList);
-                            showToast(false);
-                          }
+                      _showResultSearch(context,dropdownCitySelected,dropdownDiseaseSelected);
 
 
-                        });
-                        clearData();
-
-                        print(hospitalDoctorClinic
-                          .hospitalDoctorClinicList);
-                    },
-                    child:Column(
-                      children: [
-                        Container(padding: EdgeInsets.all(12.0),
-                          child: Text("Search"),),
-                        Container(
-                          padding: EdgeInsets.all(12.0),
-                          child: Visibility (
-                            visible: _isVisibleCircularProgress,
-                            child: CircularProgressIndicator(),
-                          ),
-                        )
-                      ],
-                    )
-                  )
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(12.0),
+                    child: Text('Flat Button'),
+                  ),
+                )
 
 
                 ],
@@ -171,24 +132,10 @@ class _HomeViewState extends State<HomeView> {
   }
 }
 
- Widget dataCome(List<HospitalDoctorClinic>  hospitalDoctorClinic  )
- {
-   if(hospitalDoctorClinic.isEmpty)
-   {
 
-     return Text("Search");
-   }
-   else
-     return CircularProgressIndicator();
-
-
- }
-
-
-
-void _showResultSearch(BuildContext context, List<HospitalDoctorClinic> hospitalDoctorClinics) {
+void _showResultSearch(BuildContext context, dropdownCitySelected,dropdownDiseaseSelected) {
   Navigator.push(context, MaterialPageRoute(builder: (_)
   {
-    return SearchView(hospitalDoctorClinics);
+    return SearchView(dropdownCitySelected,dropdownDiseaseSelected);
   }));
 }

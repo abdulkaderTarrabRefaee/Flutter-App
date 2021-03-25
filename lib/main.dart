@@ -1,12 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:gpluseclinicapp/view/home_view.dart';
 import 'package:gpluseclinicapp/view_models/list_of_hos_dr_cl.dart';
+import 'package:gpluseclinicapp/view_models/profile/lis_of_profile.dart';
 import 'package:provider/provider.dart';
 import 'package:gpluseclinicapp/view_models/list_of_city_view_model.dart';
 import 'package:gpluseclinicapp/view_models/list_of_disease_view_model.dart';
 
 
-void main() => runApp(MyApp());
+void main() => runApp( MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (_) => CityListViewModel(),
+
+      ),
+      ChangeNotifierProvider(
+        create: (_) => DiseaseListViewModel(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => HospitalDoctorClinicViewModel(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => CityHospitalDoctorClinicViewModel(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => ProfileListViewModel(),
+      ),
+
+    ],
+
+
+    child:MaterialApp(
+      debugShowCheckedModeBanner: false,
+      routes: {
+        "/": (context) => MyApp(),
+
+      },
+    )
+
+
+
+));
 
 class MyApp extends StatelessWidget {
 
@@ -36,32 +69,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: MultiProvider(
-          providers: [
-            ChangeNotifierProvider(
-              create: (_) => CityListViewModel(),
-
-            ),
-            ChangeNotifierProvider(
-              create: (_) => DiseaseListViewModel(),
-            ),
-            ChangeNotifierProvider(
-              create: (_) => HospitalDoctorClinicViewModel(),
-            ),
-          ],
-
-
-          child:MaterialApp(
-            debugShowCheckedModeBanner: false,
-            routes: {
-               "/": (context) => HomeView(),
-
-            },
-          )
-
-
-
-        )
+        home:HomeView()
     );
   }
 }

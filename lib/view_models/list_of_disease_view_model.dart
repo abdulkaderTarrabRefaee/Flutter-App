@@ -11,3 +11,5 @@ class DiseaseListViewModel extends ChangeNotifier
   }
   List<Disease> get diseaseList => _diseaseList;
 }
+
+

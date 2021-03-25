@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:gpluseclinicapp/model/data_gplus/data_search.dart';
 import 'package:flutter_html/style.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:gpluseclinicapp/model/disease/diseas_list.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 

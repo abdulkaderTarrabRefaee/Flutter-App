@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:gpluseclinicapp/model/city/city.dart';
 import 'package:gpluseclinicapp/model/data_gplus/data_search.dart';
-import 'package:gpluseclinicapp/model/disease/disease.dart';
 import 'package:gpluseclinicapp/service/gplusapi.dart';
 
 class HospitalDoctorClinicViewModel extends ChangeNotifier
@@ -13,6 +11,21 @@ class HospitalDoctorClinicViewModel extends ChangeNotifier
     hospitalDoctorClinicList =await GplusApi().fetchDataSearch(
         dropdownCitySelected,
         dropdownDiseaseSelected);
+    notifyListeners();
+  }
+
+
+
+
+  }
+
+  class CityHospitalDoctorClinicViewModel extends ChangeNotifier
+{
+  List<CitiesData> hospitalDoctorClinicList=[];
+
+  fetchHospitalDoctorClinic( ) async
+  {
+    hospitalDoctorClinicList =await GplusApi().fetchDataSearchCity();
     notifyListeners();
   }
 }

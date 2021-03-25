@@ -11,3 +11,15 @@ class HospitalDoctorClinicList {
 }
 
 
+
+class CityHospitalDoctorClinicList {
+  final List<dynamic> cityHospitalDoctorClinicList;
+  CityHospitalDoctorClinicList({this.cityHospitalDoctorClinicList});
+  factory CityHospitalDoctorClinicList.fromJson(Map<String, dynamic> jsonData) {
+    return CityHospitalDoctorClinicList(
+      cityHospitalDoctorClinicList: jsonData['cities']['datas'],
+    );
+  }
+}
+
+

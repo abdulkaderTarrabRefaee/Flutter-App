@@ -1,22 +1,40 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gpluseclinicapp/model/city/city.dart';
 import 'package:gpluseclinicapp/model/data_gplus/data_search.dart';
-import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_html/style.dart';
+import 'package:gpluseclinicapp/model/disease/disease.dart';
 import 'package:gpluseclinicapp/view/detalis_ho_dr_cl.dart';
-
+import 'package:gpluseclinicapp/view_models/list_of_hos_dr_cl.dart';
+import 'package:provider/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 String urlImage="https://gplusclinic.com/images/upload/";
 
 
 // ignore: must_be_immutable
-class SearchView extends StatelessWidget {
-  List<HospitalDoctorClinic> hospitalDoctorClinic;
+class SearchView extends StatefulWidget {
+  City  dropdownCitySelected ;
+  Disease dropdownDiseaseSelected;
+  SearchView(this.dropdownCitySelected, this.dropdownDiseaseSelected, {Key key}) : super(key: key);
+
+  @override
+  _SearchViewState createState() => _SearchViewState();
+}
 
 
-  SearchView(this.hospitalDoctorClinic);
+
+class _SearchViewState extends State<SearchView>{
+  List<HospitalDoctorClinic> hospitalDoctorClinics;
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<HospitalDoctorClinicViewModel>(context, listen: false).fetchHospitalDoctorClinic(widget.dropdownCitySelected, widget.dropdownDiseaseSelected);
+
+  }
+
   @override
   Widget build(BuildContext context) {
+    var hospitalDoctorClinic= Provider.of<HospitalDoctorClinicViewModel>(context);
+
     return Scaffold(
 
         appBar: AppBar(title: Text("Search Result")),
@@ -26,9 +44,9 @@ class SearchView extends StatelessWidget {
       child: Center(
       child: ListView.builder(
           padding: const EdgeInsets.all(8),
-          itemCount: hospitalDoctorClinic.length,
+          itemCount: hospitalDoctorClinic.hospitalDoctorClinicList.length,
           itemBuilder: (BuildContext context, int index) {
-            return cardItem(context,hospitalDoctorClinic[index]);
+            return cardItem(context,hospitalDoctorClinic.hospitalDoctorClinicList[index]);
           }
       )
     ),
