@@ -24,10 +24,11 @@ class _HomeViewState extends State<HomeView> {
   List<HospitalDoctorClinic> hospitalDoctorClinics;
   bool _isVisibleCircularProgress=false;
 
-
+  List<bool> typeSelected ;
   void showToast(_isVisibleCircularProgress)
   {
     setState(() {
+
       this._isVisibleCircularProgress = _isVisibleCircularProgress;
     });
   }
@@ -35,6 +36,7 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   void initState() {
+    typeSelected = [true, false, false ,false];
     Provider.of<CityListViewModel>(context, listen: false)
         .fetchCity();
     Provider.of<DiseaseListViewModel>(context, listen: false)
@@ -110,18 +112,60 @@ class _HomeViewState extends State<HomeView> {
                   // When the user taps the button, show a snackbar.
                   onTap: () {
 
-                      _showResultSearch(context,dropdownCitySelected,dropdownDiseaseSelected);
+                      _showResultSearch(context,dropdownCitySelected,dropdownDiseaseSelected,typeSelected);
 
 
                   },
                   child: Container(
                     padding: EdgeInsets.all(12.0),
-                    child: Text('Flat Button'),
+                    child: Text('Search'),
                   ),
                 )
+                  ,
 
+              ToggleButtons(
+                children: <Widget>[
+                  // first toggle button
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'All',
+                    ),
+                  ),
+                  // second toggle button
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'Doctor',
+                    ),
+                  ),
+                  // third toggle button
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'Hospital',
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'Clinic',
+                    ),
+                  ),
+                ],
+                // logic for button selection below
+                onPressed: (int index) {
+                  setState(() {
+                    for (int i = 0; i < typeSelected.length; i++) {
+                      typeSelected[i] = i == index;
+                    }
+                  });
+                },
+                isSelected: typeSelected,
+              ),
 
                 ],
+                
               ),
 
             ),
@@ -133,9 +177,10 @@ class _HomeViewState extends State<HomeView> {
 }
 
 
-void _showResultSearch(BuildContext context, dropdownCitySelected,dropdownDiseaseSelected) {
+void _showResultSearch(BuildContext context, dropdownCitySelected,dropdownDiseaseSelected,typeSelected) {
+  print(typeSelected);
   Navigator.push(context, MaterialPageRoute(builder: (_)
   {
-    return SearchView(dropdownCitySelected,dropdownDiseaseSelected);
+    return SearchView(dropdownCitySelected,dropdownDiseaseSelected,typeSelected);
   }));
 }

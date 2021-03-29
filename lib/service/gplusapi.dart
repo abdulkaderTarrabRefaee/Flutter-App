@@ -13,7 +13,6 @@ import 'package:gpluseclinicapp/model/city/city_list.dart';
 class GplusApi {
   final String apiKey = 'd8e093f3-9a0f-489e-87b8-12a892320900';
   final String url='http://api.gplusclinic.com/api/homepage/2';
-
   fetchCity() async {
     try {
 
@@ -66,9 +65,28 @@ class GplusApi {
       print(ex);
     }
   }
-  fetchDataSearch( dropdownCitySelected, dropdownDiseaseSelected) async
+  fetchDataSearch( dropdownCitySelected, dropdownDiseaseSelected,typeSelected) async
   {
-     String searchUrl='http://api.gplusclinic.com/api/SearchPage?city='+ dropdownCitySelected.name.toLowerCase() +'&page=1&medicalUnit='+ dropdownDiseaseSelected.group_id.toLowerCase() +'&type=0';
+
+    int conBoolToInt( List<bool> typeSelected){
+
+      if(typeSelected[0]==true)
+        //all
+        return 0;
+      if(typeSelected[1]==true)
+        //hospital
+        return 1;
+      if(typeSelected[2]==true)
+        //doctor
+        return 2;
+      if(typeSelected[3]==true)
+        //clinic
+        return 3;
+      return 0;
+
+
+    }
+     String searchUrl='http://api.gplusclinic.com/api/SearchPage?city='+ dropdownCitySelected.name.toLowerCase() +'&page=1&medicalUnit='+ dropdownDiseaseSelected.group_id.toLowerCase() +'&type='+conBoolToInt(typeSelected).toString();
      http.Response response = await http.get(
           searchUrl,
           headers: {'Apikey': apiKey,
@@ -88,6 +106,7 @@ class GplusApi {
       {
         print('status code = ${response.statusCode}');
       }
+
 
   }
   fetchDataSearchCity( ) async
@@ -115,9 +134,10 @@ class GplusApi {
 
   }
 
-  fetchProfileData(HospitalDoctorClinic hospitalDoctorClinic ,int type , int lang) async
+  Future<PurpleData> fetchProfileData(HospitalDoctorClinic hospitalDoctorClinic ,int type , int lang) async
   {
-    String searchUrl='http://api.gplusclinic.com/api/ProfilePage/'+ hospitalDoctorClinic.link + ' /'+ type.toString() + '/'+ lang.toString() +'';
+
+    String searchUrl='http://api.gplusclinic.com/api/ProfilePage/'+ hospitalDoctorClinic.link + '/'+ type.toString() + '/'+ lang.toString();
     http.Response response = await http.get(
         searchUrl,
         headers:
@@ -130,17 +150,42 @@ class GplusApi {
     {
       String data = response.body;
       var jsonData = jsonDecode(data);
-      ProfileList profileListstMap =ProfileList.fromJson(jsonData);
-      List<ProfileData> profileListsts =
-      profileListstMap.profileList.map((e) => ProfileData.fromJson(e)).toList();
-      return profileListsts;
+      PurpleData purpleData=PurpleData.fromJson(jsonData['profile']['data']);
+      return purpleData;
     }
     else
     {
       print('status code = ${response.statusCode}');
+      return null;
     }
-
   }
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

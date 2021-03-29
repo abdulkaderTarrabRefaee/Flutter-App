@@ -5,12 +5,12 @@ import 'package:gpluseclinicapp/service/gplusapi.dart';
 class HospitalDoctorClinicViewModel extends ChangeNotifier
 {
   List<HospitalDoctorClinic> hospitalDoctorClinicList=[];
-
-  fetchHospitalDoctorClinic(  dropdownCitySelected,  dropdownDiseaseSelected) async
+  List<bool> typeSelected ;
+  fetchHospitalDoctorClinic(  dropdownCitySelected,  dropdownDiseaseSelected,typeSelected) async
   {
     hospitalDoctorClinicList =await GplusApi().fetchDataSearch(
         dropdownCitySelected,
-        dropdownDiseaseSelected);
+        dropdownDiseaseSelected,typeSelected);
     notifyListeners();
   }
 

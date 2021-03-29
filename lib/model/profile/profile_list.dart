@@ -1,10 +1,10 @@
 
 class ProfileList {
-  final List<dynamic> profileList;
+  final dynamic profileList;
   ProfileList({this.profileList});
-  factory ProfileList.fromJson(Map<String, dynamic> jsonData) {
+  factory ProfileList.fromJson(Map<dynamic, dynamic> jsonData) {
     return ProfileList(
-      profileList: jsonData['content']['datas'],
+      profileList: jsonData['profile']['data'],
     );
   }
 }

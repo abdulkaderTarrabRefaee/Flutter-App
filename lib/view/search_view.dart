@@ -14,7 +14,8 @@ String urlImage="https://gplusclinic.com/images/upload/";
 class SearchView extends StatefulWidget {
   City  dropdownCitySelected ;
   Disease dropdownDiseaseSelected;
-  SearchView(this.dropdownCitySelected, this.dropdownDiseaseSelected, {Key key}) : super(key: key);
+  List<bool> typeSelected;
+  SearchView(this.dropdownCitySelected, this.dropdownDiseaseSelected, this.typeSelected, {Key key}) : super(key: key);
 
   @override
   _SearchViewState createState() => _SearchViewState();
@@ -27,7 +28,7 @@ class _SearchViewState extends State<SearchView>{
   @override
   void initState() {
     super.initState();
-    Provider.of<HospitalDoctorClinicViewModel>(context, listen: false).fetchHospitalDoctorClinic(widget.dropdownCitySelected, widget.dropdownDiseaseSelected);
+    Provider.of<HospitalDoctorClinicViewModel>(context, listen: false).fetchHospitalDoctorClinic(widget.dropdownCitySelected, widget.dropdownDiseaseSelected,widget.typeSelected);
 
   }
 
@@ -46,7 +47,7 @@ class _SearchViewState extends State<SearchView>{
           padding: const EdgeInsets.all(8),
           itemCount: hospitalDoctorClinic.hospitalDoctorClinicList.length,
           itemBuilder: (BuildContext context, int index) {
-            return cardItem(context,hospitalDoctorClinic.hospitalDoctorClinicList[index]);
+            return cardItem(context,hospitalDoctorClinic.hospitalDoctorClinicList[index],widget.typeSelected);
           }
       )
     ),
@@ -55,7 +56,7 @@ class _SearchViewState extends State<SearchView>{
     ),);
   }
 }
-Widget cardItem(BuildContext context , HospitalDoctorClinic hospitalDoctorClinic){
+Widget cardItem(BuildContext context , HospitalDoctorClinic hospitalDoctorClinic, List<bool> typeSelected){
   return SingleChildScrollView(
    child: Column(
      children: [
@@ -137,7 +138,7 @@ Widget cardItem(BuildContext context , HospitalDoctorClinic hospitalDoctorClinic
        ),
     onTap: () {
       print(hospitalDoctorClinic.name);
-      _showResultSearch(context,hospitalDoctorClinic);
+      _showResultSearch(context,hospitalDoctorClinic,typeSelected);
 
     },
   ),
@@ -157,9 +158,10 @@ Widget cardItem(BuildContext context , HospitalDoctorClinic hospitalDoctorClinic
    // child: Center(child: Text(hospitalDoctorClinic.name)),
   );
 }
-void _showResultSearch(BuildContext context, HospitalDoctorClinic hospitalDoctorClinics) {
+void _showResultSearch(BuildContext context, HospitalDoctorClinic hospitalDoctorClinics,typeSelected) {
+  print(typeSelected);
   Navigator.push(context, MaterialPageRoute(builder: (_)
   {
-    return DetailsData(hospitalDoctorClinics);
+    return DetailedProfile(hospitalDoctorClinics,typeSelected);
   }));
 }

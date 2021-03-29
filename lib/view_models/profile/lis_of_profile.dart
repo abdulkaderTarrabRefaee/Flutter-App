@@ -9,14 +9,14 @@ class ProfileListViewModel extends ChangeNotifier
   int type;
   int lang;
   HospitalDoctorClinic hospitalDoctorClinic;
-  List<ProfileData> _profileData=[];
-  fetchCity(hospitalDoctorClinic, type, lang) async
+  PurpleData profileData;
+  Future<PurpleData> fetchProfile(hospitalDoctorClinic, type, lang) async
   {
-    _profileData =await GplusApi().fetchProfileData(hospitalDoctorClinic, type, lang);
+    await GplusApi().fetchProfileData(hospitalDoctorClinic, type, lang);
+
     notifyListeners();
   }
-  List<ProfileData> get profileData => _profileData;
-
-
 
 }
+
+
