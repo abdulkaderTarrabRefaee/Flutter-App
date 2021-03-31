@@ -34,9 +34,9 @@ class _DetailedProfileState extends State<DetailedProfile>
   Widget build(BuildContext context) {
 
 
-     return FutureBuilder<PurpleData>(
+     return FutureBuilder<ProfileData>(
 
-         future:GplusApi().fetchProfileData(widget.hospitalDoctorClinic, widget.hospitalDoctorClinic.type, 2),
+         future:GplusApi().fetchProfileData(widget.hospitalDoctorClinic, widget.hospitalDoctorClinic.type),
 
          builder: (context,snapshot)
          {

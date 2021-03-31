@@ -4,7 +4,6 @@
 
 import 'dart:convert';
 
-
 class Cities {
   Cities({
     this.isSuccess,
@@ -19,7 +18,7 @@ class Cities {
 
   bool isSuccess;
   String message;
-  PurpleData data;
+  ProfileData data;
   List<FluffyData> datas;
   int totalRows;
   int pageNumber;
@@ -27,30 +26,35 @@ class Cities {
   int totalPage;
 
   factory Cities.fromJson(Map<String, dynamic> json) => Cities(
-    isSuccess: json["is_success"],
-    message: json["message"],
-    data: json["data"] == null ? null : PurpleData.fromJson(json["data"]),
-    datas: json["datas"] == null ? null : List<FluffyData>.from(json["datas"].map((x) => FluffyData.fromJson(x))),
-    totalRows: json["total_rows"],
-    pageNumber: json["page_number"],
-    rowsCount: json["rows_count"],
-    totalPage: json["total_page"],
-  );
+        isSuccess: json["is_success"],
+        message: json["message"],
+        data: json["data"] == null ? null : ProfileData.fromJson(json["data"]),
+        datas: json["datas"] == null
+            ? null
+            : List<FluffyData>.from(
+                json["datas"].map((x) => FluffyData.fromJson(x))),
+        totalRows: json["total_rows"],
+        pageNumber: json["page_number"],
+        rowsCount: json["rows_count"],
+        totalPage: json["total_page"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "is_success": isSuccess,
-    "message": message,
-    "data": data == null ? null : data.toJson(),
-    "datas": datas == null ? null : List<dynamic>.from(datas.map((x) => x.toJson())),
-    "total_rows": totalRows,
-    "page_number": pageNumber,
-    "rows_count": rowsCount,
-    "total_page": totalPage,
-  };
+        "is_success": isSuccess,
+        "message": message,
+        "data": data == null ? null : data.toJson(),
+        "datas": datas == null
+            ? null
+            : List<dynamic>.from(datas.map((x) => x.toJson())),
+        "total_rows": totalRows,
+        "page_number": pageNumber,
+        "rows_count": rowsCount,
+        "total_page": totalPage,
+      };
 }
 
-class PurpleData {
-  PurpleData({
+class ProfileData {
+  ProfileData({
     this.parentId,
     this.name,
     this.address1,
@@ -125,8 +129,8 @@ class PurpleData {
   dynamic paymentValue;
   int rateAverage;
   String summary;
-  List<String> languages=[];
-  List<String> expertise=[];
+  List<String> languages = [];
+  List<String> expertise = [];
   List<String> units;
   int statusId;
   String titleId;
@@ -142,108 +146,104 @@ class PurpleData {
   bool isAward;
   bool isFreeConsultation;
 
-  factory PurpleData.fromJson(Map<dynamic, dynamic> json) => PurpleData(
-    parentId: json["parent_id"],
-    name: json["name"],
-    address1: json["address1"],
-    address2: json["address2"],
-    countryId: json["country_id"],
-    city: json["city"],
-    cityName: json["city_name"],
-    state: json["state"],
-    stateName: json["state_name"],
-    postCode: json["post_code"],
-    location: json["location"],
-    phone: json["phone"],
-    phone2: json["phone2"],
-    currencyId: json["currency_id"],
-    unitName: json["unit_name"],
-    type: json["type"],
-    title: json["title"],
-    genus: json["genus"],
-    content: json["content"],
-    image: json["image"],
-    link: json["link"],
-    metaTitle: json["meta_title"],
-    metaDescription: json["meta_description"],
-    canonicalLink: json["canonical_link"],
-    languageId: json["language_id"],
-    paymentValue: json["payment_value"],
-    rateAverage: json["rate_average"],
-    summary: json["summary"],
-    languages: List<String>.from(
-       json["languages"] != null?
-  json["languages"].map((x) => x):[]
-
-    ),
-    expertise: List<String>.from(
-        json["expertise"] != null?
-        json["expertise"].map((x) => x):[]
-
-    ),
-    units: List<String>.from(json["units"].map((x) => x)),
-    statusId: json["status_id"],
-    titleId: json["title_id"],
-    clinicId: json["clinic_id"],
-    hospitalId: json["hospital_id"],
-    unitId: json["unit_id"],
-    jobTitleId: json["job_title_id"],
-    genusId: json["genus_id"],
-    paymentMethods: List<Insurance>.from(json["paymentMethods"].map((x) => Insurance.fromJson(x))),
-    insurances: List<Insurance>.from(json["insurances"].map((x) => Insurance.fromJson(x))),
-    showAddress: json["show_address"],
-    address: json["address"],
-    isAward: json["is_award"],
-    isFreeConsultation: json["is_free_consultation"],
-  );
+  factory ProfileData.fromJson(Map<dynamic, dynamic> json) => ProfileData(
+        parentId: json["parent_id"],
+        name: json["name"],
+        address1: json["address1"],
+        address2: json["address2"],
+        countryId: json["country_id"],
+        city: json["city"],
+        cityName: json["city_name"],
+        state: json["state"],
+        stateName: json["state_name"],
+        postCode: json["post_code"],
+        location: json["location"],
+        phone: json["phone"],
+        phone2: json["phone2"],
+        currencyId: json["currency_id"],
+        unitName: json["unit_name"],
+        type: json["type"],
+        title: json["title"],
+        genus: json["genus"],
+        content: json["content"],
+        image: json["image"],
+        link: json["link"],
+        metaTitle: json["meta_title"],
+        metaDescription: json["meta_description"],
+        canonicalLink: json["canonical_link"],
+        languageId: json["language_id"],
+        paymentValue: json["payment_value"],
+        rateAverage: json["rate_average"],
+        summary: json["summary"],
+        languages: List<String>.from(
+            json["languages"] != null ? json["languages"].map((x) => x) : []),
+        expertise: List<String>.from(
+            json["expertise"] != null ? json["expertise"].map((x) => x) : []),
+        units: List<String>.from(json["units"].map((x) => x)),
+        statusId: json["status_id"],
+        titleId: json["title_id"],
+        clinicId: json["clinic_id"],
+        hospitalId: json["hospital_id"],
+        unitId: json["unit_id"],
+        jobTitleId: json["job_title_id"],
+        genusId: json["genus_id"],
+        paymentMethods: List<Insurance>.from(
+            json["paymentMethods"].map((x) => Insurance.fromJson(x))),
+        insurances: List<Insurance>.from(
+            json["insurances"].map((x) => Insurance.fromJson(x))),
+        showAddress: json["show_address"],
+        address: json["address"],
+        isAward: json["is_award"],
+        isFreeConsultation: json["is_free_consultation"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "parent_id": parentId,
-    "name": name,
-    "address1": address1,
-    "address2": address2,
-    "country_id": countryId,
-    "city": city,
-    "city_name": cityName,
-    "state": state,
-    "state_name": stateName,
-    "post_code": postCode,
-    "location": location,
-    "phone": phone,
-    "phone2": phone2,
-    "currency_id": currencyId,
-    "unit_name": unitName,
-    "type": type,
-    "title": title,
-    "genus": genus,
-    "content": content,
-    "image": image,
-    "link": link,
-    "meta_title": metaTitle,
-    "meta_description": metaDescription,
-    "canonical_link": canonicalLink,
-    "language_id": languageId,
-    "payment_value": paymentValue,
-    "rate_average": rateAverage,
-    "summary": summary,
-    "languages": List<dynamic>.from(
-        languages.map((x) => x)),
-    "expertise": List<dynamic>.from(expertise.map((x) => x)),
-    "units": List<dynamic>.from(units.map((x) => x)),
-    "status_id": statusId,
-    "title_id": titleId,
-    "clinic_id": clinicId,
-    "hospital_id": hospitalId,
-    "unit_id": unitId,
-    "job_title_id": jobTitleId,
-    "genus_id": genusId,
-    "paymentMethods": List<dynamic>.from(paymentMethods.map((x) => x.toJson())),
-    "insurances": List<dynamic>.from(insurances.map((x) => x.toJson())),
-    "show_address": showAddress,
-    "address": address,
-    "is_award": isAward,
-    "is_free_consultation": isFreeConsultation,
-  };
+        "parent_id": parentId,
+        "name": name,
+        "address1": address1,
+        "address2": address2,
+        "country_id": countryId,
+        "city": city,
+        "city_name": cityName,
+        "state": state,
+        "state_name": stateName,
+        "post_code": postCode,
+        "location": location,
+        "phone": phone,
+        "phone2": phone2,
+        "currency_id": currencyId,
+        "unit_name": unitName,
+        "type": type,
+        "title": title,
+        "genus": genus,
+        "content": content,
+        "image": image,
+        "link": link,
+        "meta_title": metaTitle,
+        "meta_description": metaDescription,
+        "canonical_link": canonicalLink,
+        "language_id": languageId,
+        "payment_value": paymentValue,
+        "rate_average": rateAverage,
+        "summary": summary,
+        "languages": List<dynamic>.from(languages.map((x) => x)),
+        "expertise": List<dynamic>.from(expertise.map((x) => x)),
+        "units": List<dynamic>.from(units.map((x) => x)),
+        "status_id": statusId,
+        "title_id": titleId,
+        "clinic_id": clinicId,
+        "hospital_id": hospitalId,
+        "unit_id": unitId,
+        "job_title_id": jobTitleId,
+        "genus_id": genusId,
+        "paymentMethods":
+            List<dynamic>.from(paymentMethods.map((x) => x.toJson())),
+        "insurances": List<dynamic>.from(insurances.map((x) => x.toJson())),
+        "show_address": showAddress,
+        "address": address,
+        "is_award": isAward,
+        "is_free_consultation": isFreeConsultation,
+      };
 }
 
 class Insurance {
@@ -262,20 +262,20 @@ class Insurance {
   int isThere;
 
   factory Insurance.fromJson(Map<String, dynamic> json) => Insurance(
-    id: json["id"],
-    name: json["name"],
-    languageId: json["language_id"],
-    groupId: json["group_id"],
-    isThere: json["isThere"] == null ? null : json["isThere"],
-  );
+        id: json["id"],
+        name: json["name"],
+        languageId: json["language_id"],
+        groupId: json["group_id"],
+        isThere: json["isThere"] == null ? null : json["isThere"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "language_id": languageId,
-    "group_id": groupId,
-    "isThere": isThere == null ? null : isThere,
-  };
+        "id": id,
+        "name": name,
+        "language_id": languageId,
+        "group_id": groupId,
+        "isThere": isThere == null ? null : isThere,
+      };
 }
 
 class FluffyData {
@@ -300,26 +300,26 @@ class FluffyData {
   int doctorId;
 
   factory FluffyData.fromJson(Map<String, dynamic> json) => FluffyData(
-    id: json["id"],
-    name: json["name"],
-    languageId: json["language_id"],
-    groupId: json["group_id"],
-    active: json["active"] == null ? null : json["active"],
-    metaTitle: json["meta_title"] == null ? null : json["meta_title"],
-    metaDescription: json["meta_description"],
-    doctorId: json["doctor_id"] == null ? null : json["doctor_id"],
-  );
+        id: json["id"],
+        name: json["name"],
+        languageId: json["language_id"],
+        groupId: json["group_id"],
+        active: json["active"] == null ? null : json["active"],
+        metaTitle: json["meta_title"] == null ? null : json["meta_title"],
+        metaDescription: json["meta_description"],
+        doctorId: json["doctor_id"] == null ? null : json["doctor_id"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "language_id": languageId,
-    "group_id": groupId,
-    "active": active == null ? null : active,
-    "meta_title": metaTitle == null ? null : metaTitle,
-    "meta_description": metaDescription,
-    "doctor_id": doctorId == null ? null : doctorId,
-  };
+        "id": id,
+        "name": name,
+        "language_id": languageId,
+        "group_id": groupId,
+        "active": active == null ? null : active,
+        "meta_title": metaTitle == null ? null : metaTitle,
+        "meta_description": metaDescription,
+        "doctor_id": doctorId == null ? null : doctorId,
+      };
 }
 
 class Hours {
@@ -344,26 +344,27 @@ class Hours {
   int totalPage;
 
   factory Hours.fromJson(Map<String, dynamic> json) => Hours(
-    isSuccess: json["is_success"],
-    message: json["message"],
-    data: json["data"],
-    datas: List<HoursData>.from(json["datas"].map((x) => HoursData.fromJson(x))),
-    totalRows: json["total_rows"],
-    pageNumber: json["page_number"],
-    rowsCount: json["rows_count"],
-    totalPage: json["total_page"],
-  );
+        isSuccess: json["is_success"],
+        message: json["message"],
+        data: json["data"],
+        datas: List<HoursData>.from(
+            json["datas"].map((x) => HoursData.fromJson(x))),
+        totalRows: json["total_rows"],
+        pageNumber: json["page_number"],
+        rowsCount: json["rows_count"],
+        totalPage: json["total_page"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "is_success": isSuccess,
-    "message": message,
-    "data": data,
-    "datas": List<dynamic>.from(datas.map((x) => x.toJson())),
-    "total_rows": totalRows,
-    "page_number": pageNumber,
-    "rows_count": rowsCount,
-    "total_page": totalPage,
-  };
+        "is_success": isSuccess,
+        "message": message,
+        "data": data,
+        "datas": List<dynamic>.from(datas.map((x) => x.toJson())),
+        "total_rows": totalRows,
+        "page_number": pageNumber,
+        "rows_count": rowsCount,
+        "total_page": totalPage,
+      };
 }
 
 class HoursData {
@@ -386,24 +387,24 @@ class HoursData {
   bool active;
 
   factory HoursData.fromJson(Map<String, dynamic> json) => HoursData(
-    id: json["id"],
-    type: json["type"],
-    parentId: json["parent_id"],
-    day: json["day"],
-    opening: json["opening"] == null ? null : json["opening"],
-    closeing: json["closeing"] == null ? null : json["closeing"],
-    active: json["active"],
-  );
+        id: json["id"],
+        type: json["type"],
+        parentId: json["parent_id"],
+        day: json["day"],
+        opening: json["opening"] == null ? null : json["opening"],
+        closeing: json["closeing"] == null ? null : json["closeing"],
+        active: json["active"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "type": type,
-    "parent_id": parentId,
-    "day": day,
-    "opening": opening == null ? null : opening,
-    "closeing": closeing == null ? null : closeing,
-    "active": active,
-  };
+        "id": id,
+        "type": type,
+        "parent_id": parentId,
+        "day": day,
+        "opening": opening == null ? null : opening,
+        "closeing": closeing == null ? null : closeing,
+        "active": active,
+      };
 }
 
 class Police {
@@ -416,12 +417,12 @@ class Police {
   String link;
 
   factory Police.fromJson(Map<String, dynamic> json) => Police(
-    title: json["title"],
-    link: json["link"],
-  );
+        title: json["title"],
+        link: json["link"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "title": title,
-    "link": link,
-  };
+        "title": title,
+        "link": link,
+      };
 }

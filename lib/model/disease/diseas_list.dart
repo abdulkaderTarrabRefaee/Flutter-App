@@ -1,4 +1,3 @@
-
 class DiseaseList {
   final List<dynamic> disease;
   DiseaseList({this.disease});

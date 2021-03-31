@@ -6,46 +6,34 @@ import 'package:provider/provider.dart';
 import 'package:gpluseclinicapp/view_models/list_of_city_view_model.dart';
 import 'package:gpluseclinicapp/view_models/list_of_disease_view_model.dart';
 
-
-void main() => runApp( MultiProvider(
-    providers: [
-      ChangeNotifierProvider(
-        create: (_) => CityListViewModel(),
-
-      ),
-      ChangeNotifierProvider(
-        create: (_) => DiseaseListViewModel(),
-      ),
-      ChangeNotifierProvider(
-        create: (_) => HospitalDoctorClinicViewModel(),
-      ),
-      ChangeNotifierProvider(
-        create: (_) => CityHospitalDoctorClinicViewModel(),
-      ),
-      ChangeNotifierProvider(
-        create: (_) => ProfileListViewModel(),
-      ),
-
-    ],
-
-
-    child:MaterialApp(
-      debugShowCheckedModeBanner: false,
-      routes: {
-        "/": (context) => MyApp(),
-
-      },
-    )
-
-
-
-));
+void main() => runApp(MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (_) => CityListViewModel(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => DiseaseListViewModel(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => HospitalDoctorClinicViewModel(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => CityHospitalDoctorClinicViewModel(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => ProfileListViewModel(),
+          ),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          routes: {
+            "/": (context) => MyApp(),
+          },
+        )));
 
 class MyApp extends StatelessWidget {
-
   // This widget is the root of your application.
   @override
-
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -69,7 +57,6 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home:HomeView()
-    );
+        home: HomeView());
   }
 }
