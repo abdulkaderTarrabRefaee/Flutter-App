@@ -12,12 +12,12 @@ class HospitalDoctorClinicList {
 
 
 
-class CityHospitalDoctorClinicList {
-  final List<dynamic> cityHospitalDoctorClinicList;
-  CityHospitalDoctorClinicList({this.cityHospitalDoctorClinicList});
-  factory CityHospitalDoctorClinicList.fromJson(Map<String, dynamic> jsonData) {
-    return CityHospitalDoctorClinicList(
-      cityHospitalDoctorClinicList: jsonData['cities']['datas'],
+class ExpertisesList {
+  final List<dynamic> expertisesList;
+  ExpertisesList({this.expertisesList});
+  factory ExpertisesList.fromJson(Map<String, dynamic> jsonData) {
+    return ExpertisesList(
+      expertisesList: jsonData['expertises']['datas'],
     );
   }
 }

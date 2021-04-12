@@ -35,8 +35,7 @@ class _HomeViewState extends State<HomeView> {
     Provider.of<CityListViewModel>(context, listen: false).fetchCity();
     Provider.of<DiseaseListViewModel>(context, listen: false).fetchDisease();
     Provider.of<HospitalDoctorClinicViewModel>(context, listen: false);
-    Provider.of<CityHospitalDoctorClinicViewModel>(context, listen: false)
-        .fetchHospitalDoctorClinic();
+    Provider.of<ExpertisesViewModel>(context, listen: false).fetchExpertises();
 
   }
 

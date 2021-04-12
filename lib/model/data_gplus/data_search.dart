@@ -103,7 +103,7 @@ class Content {
   bool isSuccess;
   String message;
   dynamic data;
-  List<ContantData> datas;
+  List<ExpertisesData> datas;
   int totalRows;
   int pageNumber;
   int rowsCount;
@@ -113,8 +113,8 @@ class Content {
         isSuccess: json["is_success"],
         message: json["message"],
         data: json["data"],
-        datas: List<ContantData>.from(
-            json["datas"].map((x) => ContantData.fromJson(x))),
+        datas: List<ExpertisesData>.from(
+            json["datas"].map((x) => ExpertisesData.fromJson(x))),
         totalRows: json["total_rows"],
         pageNumber: json["page_number"],
         rowsCount: json["rows_count"],
@@ -133,27 +133,24 @@ class Content {
       };
 }
 
-class ContantData {
-  ContantData({
+class ExpertisesData {
+  ExpertisesData({
     this.id,
     this.name,
     this.languageId,
     this.groupId,
-    this.isThere,
   });
 
   int id;
   String name;
   int languageId;
-  int groupId;
-  int isThere;
+  String groupId;
 
-  factory ContantData.fromJson(Map<String, dynamic> json) => ContantData(
+  factory ExpertisesData.fromJson(Map<String, dynamic> json) => ExpertisesData(
         id: json["id"],
         name: json["name"],
         languageId: json["language_id"],
         groupId: json["group_id"],
-        isThere: json["isThere"] == null ? null : json["isThere"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -161,7 +158,6 @@ class ContantData {
         "name": name,
         "language_id": languageId,
         "group_id": groupId,
-        "isThere": isThere == null ? null : isThere,
       };
 }
 

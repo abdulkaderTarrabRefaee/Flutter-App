@@ -13,11 +13,11 @@ class HospitalDoctorClinicViewModel extends ChangeNotifier {
   }
 }
 
-class CityHospitalDoctorClinicViewModel extends ChangeNotifier {
-  List<ContantData> hospitalDoctorClinicList = [];
+class ExpertisesViewModel extends ChangeNotifier {
+  List<ExpertisesData> expertisesList = [];
 
-  fetchHospitalDoctorClinic() async {
-    hospitalDoctorClinicList = await GplusApi().fetchDataSearchCity();
+  fetchExpertises() async {
+    expertisesList = await GplusApi().fetchDataSearchExpertises();
     notifyListeners();
   }
 }

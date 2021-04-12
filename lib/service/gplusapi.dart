@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:gpluseclinicapp/model/appointment/Appointment.dart';
 import 'package:gpluseclinicapp/model/city/city.dart';
 import 'package:gpluseclinicapp/model/data_gplus/data_search.dart';
 import 'package:gpluseclinicapp/model/data_gplus/data_search_list.dart';
@@ -6,6 +7,8 @@ import 'package:gpluseclinicapp/model/disease/disease.dart';
 import 'package:gpluseclinicapp/model/disease/diseas_list.dart';
 import 'package:gpluseclinicapp/model/profile/profile.dart';
 import 'package:gpluseclinicapp/model/profile/profile_list.dart';
+import 'package:gpluseclinicapp/model/profile2/profileDoc.dart';
+import 'package:gpluseclinicapp/model/profile2/profileHos.dart';
 import 'package:http/http.dart' as http;
 import 'package:gpluseclinicapp/model/city/city_list.dart';
 //2 for en ,, 3 for ar
@@ -61,8 +64,8 @@ class GplusApi {
     }
   }
 
-  fetchDataSearch(
-      dropdownCitySelected, dropdownDiseaseSelected, typeSelected, int pageNamber) async {
+  fetchDataSearch(dropdownCitySelected, dropdownDiseaseSelected, typeSelected,
+      int pageNamber) async {
     var city;
     var disease;
     print(pageNamber);
@@ -94,7 +97,9 @@ class GplusApi {
 
     String searchUrl = 'http://api.gplusclinic.com/api/SearchPage?city=' +
         city +
-        '&page='+pageNamber.toString()+'&medicalUnit=' +
+        '&page=' +
+        pageNamber.toString() +
+        '&medicalUnit=' +
         disease +
         '&type=' +
         conBoolToInt(typeSelected).toString();
@@ -119,7 +124,7 @@ class GplusApi {
     }
   }
 
-  fetchDataSearchCity() async {
+  fetchDataSearchExpertises() async {
     String searchUrl =
         'http://api.gplusclinic.com/api/SearchPage?city=&page=1&medicalUnit=&type=0';
     http.Response response = await http.get(searchUrl, headers: {
@@ -131,24 +136,23 @@ class GplusApi {
     if (response.statusCode == 200) {
       String data = response.body;
       var jsonData = jsonDecode(data);
-      CityHospitalDoctorClinicList cityhospitalDoctorClinicListMap =
-          CityHospitalDoctorClinicList.fromJson(jsonData);
-      List<ContantData> cityHospitalDoctorClinicLists =
-          cityhospitalDoctorClinicListMap.cityHospitalDoctorClinicList
-              .map((e) => ContantData.fromJson(e))
-              .toList();
-      return cityHospitalDoctorClinicLists;
+      ExpertisesList expertisesListListMap = ExpertisesList.fromJson(jsonData);
+      List<ExpertisesData> expertisesLists = expertisesListListMap
+          .expertisesList
+          .map((e) => ExpertisesData.fromJson(e))
+          .toList();
+      return expertisesLists;
     } else {
       print('status code = ${response.statusCode}');
     }
   }
 
-  Future<ProfileData> fetchProfileData(
+  Future<ProfileDoc>  fetchProfileDocData(
       HospitalDoctorClinic hospitalDoctorClinic, int type) async {
     String searchUrl = 'http://api.gplusclinic.com/api/ProfilePage/' +
         hospitalDoctorClinic.link +
         ' /' +
-        type.toString() +
+        type.toString()+
         '/' +
         lang.toString() +
         '';
@@ -159,17 +163,48 @@ class GplusApi {
       'Accept': '*/*',
     });
     if (response.statusCode == 200) {
-      String data = response.body;
-      var jsonData = jsonDecode(data);
-      ProfileData profileData =
-      ProfileData.fromJson(jsonData['profile']['data']);
-      return profileData;
+
+        String data = response.body;
+        var jsonData = jsonDecode(data);
+        ProfileDoc profileData = ProfileDoc.fromJson(jsonData);
+        return profileData;
+
     } else {
       print('status code = ${response.statusCode}');
       return null;
     }
   }
-  Future<Content> fetchContentData( dropdownCitySelected, dropdownDiseaseSelected, typeSelected, int pageNamber) async {
+  Future<ProfileHos>  fetchProfileHosData(
+      HospitalDoctorClinic hospitalDoctorClinic, int type) async {
+    String searchUrl = 'http://api.gplusclinic.com/api/ProfilePage/' +
+        hospitalDoctorClinic.link +
+        ' /' +
+        type.toString()+
+        '/' +
+        lang.toString() +
+        '';
+    http.Response response = await http.get(searchUrl, headers: {
+      'Apikey': apiKey,
+      'Connection': 'keep-alive',
+      'Accept-Encoding': 'gzip, deflate, br',
+      'Accept': '*/*',
+    });
+    if (response.statusCode == 200) {
+
+      String data = response.body;
+      var jsonData = jsonDecode(data);
+      ProfileHos profileData = ProfileHos.fromJson(jsonData);
+      return profileData;
+
+    } else {
+      print('status code = ${response.statusCode}');
+      return null;
+    }
+  }
+
+
+  Future<HospitalDoctorClinicInfo> fetchContentData(dropdownCitySelected,
+      dropdownDiseaseSelected, typeSelected, int pageNamber) async {
     var city;
     var disease;
     print(pageNamber);
@@ -201,7 +236,9 @@ class GplusApi {
 
     String searchUrl = 'http://api.gplusclinic.com/api/SearchPage?city=' +
         city +
-        '&page='+pageNamber.toString()+'&medicalUnit=' +
+        '&page=' +
+        pageNamber.toString() +
+        '&medicalUnit=' +
         disease +
         '&type=' +
         conBoolToInt(typeSelected).toString();
@@ -214,12 +251,29 @@ class GplusApi {
     if (response.statusCode == 200) {
       String data = response.body;
       var jsonData = jsonDecode(data);
-      Content contentData =
-      Content.fromJson(jsonData['content']);
+      HospitalDoctorClinicInfo contentData =
+          HospitalDoctorClinicInfo.fromJson(jsonData['content']);
       return contentData;
     } else {
       print('status code = ${response.statusCode}');
       return null;
     }
+  }
+
+  //post form
+  appointmentPost(AppointmentPost appointmentPost) async {
+    String url = "http://api.gplusclinic.com/api/appointment";
+
+    String aa;
+    var response = await http.post(url,
+        headers: {
+          'Apikey': apiKey,
+          'Connection': 'keep-alive',
+          'Accept-Encoding': 'gzip, deflate, br',
+          'Accept': '*/*',
+          'Content-Type': 'application/json; charset=UTF-8'
+        },
+        body: aa = json.encode(appointmentPost.toJson()));
+    print(response.statusCode);
   }
 }
