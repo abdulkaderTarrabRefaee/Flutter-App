@@ -2,13 +2,16 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:gpluseclinicapp/model/Staff/staff.dart';
 import 'package:gpluseclinicapp/model/data_gplus/data_search.dart';
 import 'package:gpluseclinicapp/model/profile2/profileHos.dart';
 import 'package:gpluseclinicapp/service/gplusapi.dart';
 import 'package:gpluseclinicapp/view/appointment_view.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html/style.dart';
+import 'package:gpluseclinicapp/view/detalis_dr.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
 class DetailedProfileHos extends StatefulWidget {
@@ -23,9 +26,24 @@ class DetailedProfileHos extends StatefulWidget {
 
 class _DetailedProfileHosState extends State<DetailedProfileHos> {
   String urlImage = "https://gplusclinic.com/images/upload/";
+  int pageNumberInc = 1;
+  int pageCurrentNumber;
+  //max-3 get yarin
+  int maxNumberPage;
+  int maxNumberResult;
+  List<bool> pageSelected;
+  int parntid=1;
+  void incPage() {
+    if (pageSelected[0] == true && pageNumberInc > 1) {
+      pageNumberInc--;
+    }
+    if (pageSelected[1] == true && pageNumberInc < maxNumberPage) {
+      pageNumberInc++;
+    }
+  }
   @override
   void initState() {
-    super.initState();
+
   }
 
   @override
@@ -53,6 +71,9 @@ class _DetailedProfileHosState extends State<DetailedProfileHos> {
                   widget.hospitalDoctorClinic.type),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
+                  parntid=snapshot.data.profile.data.parentId;
+                  initState();
+                  print(parntid);
                   return SafeArea(
                     child: Center(
                       child: SingleChildScrollView(
@@ -312,7 +333,26 @@ class _DetailedProfileHosState extends State<DetailedProfileHos> {
                     ),
                   );
               }),
-          Text("dd"),
+
+          FutureBuilder<Staff>(
+
+        future: GplusApi().fetchStaffData(parntid, 2, 1, "search"),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            var maxNumberPage = snapshot.data.totalPage;
+            var pageCurrentNumber = snapshot.data.pageNumber;
+            return Text(snapshot.data.staffData.length.toString());
+          } else
+            return SafeArea(
+              child: Container(
+                color: Colors.white,
+                child: Center(
+                  child: CircularProgressIndicator(backgroundColor: Colors.red),
+                ),
+              ),
+            );
+        }),
+
           Text("dd"),
         ]),
       ),
@@ -335,4 +375,192 @@ class ImageDialog extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget _getImage(url ) {
+  final imageProvider = ResizeImage.resizeIfNeeded(
+    200,
+    250,
+    CachedNetworkImageProvider(
+      url,
+    ),
+  );
+
+  final image = Image(
+    image: imageProvider,
+  );
+
+
+
+  return image;
+}
+
+Widget cardItem(BuildContext context, StaffData staff,
+    List<bool> typeSelected) {
+  String urlImage = "https://gplusclinic.com/images/upload/";
+  return  Row(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      InkWell(
+        hoverColor:Colors.red,
+        child: Container(
+          height: 250,
+          margin: EdgeInsets.only(top: 30),
+          padding: EdgeInsets.only(top: 30),
+          decoration: BoxDecoration(
+            color: Colors.white70,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
+                bottomLeft: Radius.circular(10),
+                bottomRight: Radius.circular(10)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 2,
+                blurRadius: 15,
+                offset: Offset(0, 3),
+              ),
+            ],
+          ),
+          child: Row(
+            children: [
+              Container(
+                child: Stack(
+                  children: [
+                    Column(
+                      children: [
+                        Container(
+                          width: 140,
+                          margin: EdgeInsets.only(left: 15, right: 15,),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: _getImage(
+                                urlImage + staff.image),
+                          ),
+                        ),
+                        if (staff.isFreeConsultation)
+                          Transform.translate(
+                            offset: Offset(-20, -23.0),
+                            child: Container(
+                              width: 100,
+                              height: 14,
+                              color: Color.fromRGBO(75, 182, 255, 0.6),
+                              child: Center(
+                                child: Text(
+                                  "FREE CONSULTATION",
+                                  style: TextStyle(fontSize: 8),
+                                ),
+                              ),
+                            ),
+                          )
+                      ],
+                    ),
+                    if (staff.isAward)
+                      Transform.rotate(
+                        angle: -22/7 / 6,
+                        child: Container(
+                          width: 60,
+                          child: Image.network(
+                              "https://gplusclinic.com/assets/img/avard-mini.png"),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+
+                children: [
+                  new Divider(
+                    indent: 16,
+                    endIndent: 16,
+                    color: Colors.black,
+                  ),
+                  Container(
+                    width: 190,
+                    height: 20,
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      staff.name,
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blueAccent),
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Text(staff.rate.toString(),
+                          style: TextStyle(fontSize: 7)),
+                      Container(
+
+                        child: RatingBar.builder(
+                          ignoreGestures: true,
+                          initialRating: staff.rate.toDouble(),
+                          minRating: 0,
+                          direction: Axis.horizontal,
+                          itemCount: 5,
+                          itemSize: 10,
+                          itemBuilder: (context, _) => Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Text("from "+staff.rateCount.toString()+ "  verified reviews ",style: TextStyle(fontSize: 6)),
+
+                  Container(
+                    width: 180,
+                    height: 100,
+                    margin: EdgeInsets.only(top: 10, bottom: 10),
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                        staff.summary == null
+                            ? ""
+                            : staff.summary,
+                        style: TextStyle(fontSize: 10)),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        onTap: () {
+          print(staff.name);
+          print(typeSelected);
+
+        },
+
+
+      ),
+      Container(
+        height: 100,
+        width: 10,
+        padding: EdgeInsets.only(bottom: 10,top: 10,left: 10,right: 10),
+      ),
+    ],
+
+    // child: Center(child: Text(hospitalDoctorClinic.name)),
+  );
+}
+
+void _showResultSearchDoc(BuildContext context,
+    HospitalDoctorClinic hospitalDoctorClinics, typeSelected) {
+  print(typeSelected);
+  Navigator.push(context, MaterialPageRoute(builder: (_) {
+    return new DetailedProfileDoc(hospitalDoctorClinics, typeSelected);
+  }));
+
+
+}
+void _showResultSearchHos(BuildContext context,
+    HospitalDoctorClinic hospitalDoctorClinics, typeSelected) {
+  print(typeSelected);
+  Navigator.push(context, MaterialPageRoute(builder: (_) {
+    return new DetailedProfileHos(hospitalDoctorClinics, typeSelected);
+
+  }));
 }

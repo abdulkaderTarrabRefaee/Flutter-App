@@ -1,12 +1,11 @@
 import 'dart:convert';
+import 'package:gpluseclinicapp/model/Staff/staff.dart';
 import 'package:gpluseclinicapp/model/appointment/Appointment.dart';
 import 'package:gpluseclinicapp/model/city/city.dart';
 import 'package:gpluseclinicapp/model/data_gplus/data_search.dart';
 import 'package:gpluseclinicapp/model/data_gplus/data_search_list.dart';
 import 'package:gpluseclinicapp/model/disease/disease.dart';
 import 'package:gpluseclinicapp/model/disease/diseas_list.dart';
-import 'package:gpluseclinicapp/model/profile/profile.dart';
-import 'package:gpluseclinicapp/model/profile/profile_list.dart';
 import 'package:gpluseclinicapp/model/profile2/profileDoc.dart';
 import 'package:gpluseclinicapp/model/profile2/profileHos.dart';
 import 'package:http/http.dart' as http;
@@ -194,6 +193,37 @@ class GplusApi {
       String data = response.body;
       var jsonData = jsonDecode(data);
       ProfileHos profileData = ProfileHos.fromJson(jsonData);
+      return profileData;
+
+    } else {
+      print('status code = ${response.statusCode}');
+      return null;
+    }
+  }
+
+  Future<Staff>  fetchStaffData(
+      int parntId, int type,int page,String search) async {
+    String searchUrl = 'http://api.gplusclinic.com/api/ProfilePage/' +
+        lang +
+        '/' +
+        parntId.toString()+
+        '/' +
+        type.toString() +
+
+        '/' +
+        page.toString()+
+        '/'+ search;
+    http.Response response = await http.get(searchUrl, headers: {
+      'Apikey': apiKey,
+      'Connection': 'keep-alive',
+      'Accept-Encoding': 'gzip, deflate, br',
+      'Accept': '*/*',
+    });
+    if (response.statusCode == 200) {
+
+      String data = response.body;
+      var jsonData = jsonDecode(data);
+      Staff profileData = Staff.fromJson(jsonData);
       return profileData;
 
     } else {

@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'dart:io' as Io;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gpluseclinicapp/model/appointment/Appointment.dart';
-import 'package:gpluseclinicapp/model/profile/profile.dart';
 import 'package:gpluseclinicapp/service/gplusapi.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
