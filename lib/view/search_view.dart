@@ -6,6 +6,8 @@ import 'package:gpluseclinicapp/model/disease/disease.dart';
 import 'package:gpluseclinicapp/service/gplusapi.dart';
 import 'package:gpluseclinicapp/view/detalis_dr.dart';
 import 'package:gpluseclinicapp/view/detalis_hos.dart';
+import 'package:gpluseclinicapp/view_models/list_of_hos_dr_cl.dart';
+import 'package:provider/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -61,6 +63,7 @@ class _SearchViewState extends State<SearchView> {
             pageCurrentNumber = snapshot.data.pageNumber;
             initState();
             return Scaffold(
+
                 appBar: AppBar(
                     title: Text("Search Result" +
                         pageCurrentNumber.toString() +
@@ -70,8 +73,14 @@ class _SearchViewState extends State<SearchView> {
 
                   children: [
                     SafeArea(
+
                       child: Container(
-                        color: Colors.white70,
+                        decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                                colors: [  const Color(0xFF00a99d), const Color(0xFF29abe2)],transform: GradientRotation(35.0))
+                        ),
                         child: Column(
                           children: [
                             Text("data"),

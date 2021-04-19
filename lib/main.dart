@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gpluseclinicapp/view/home_view.dart';
+import 'package:gpluseclinicapp/view/splash_view.dart';
 import 'package:gpluseclinicapp/view_models/list_of_hos_dr_cl.dart';
 import 'package:provider/provider.dart';
 import 'package:gpluseclinicapp/view_models/list_of_city_view_model.dart';
@@ -55,6 +56,6 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: HomeView());
+        home: SplashScreen());
   }
 }
