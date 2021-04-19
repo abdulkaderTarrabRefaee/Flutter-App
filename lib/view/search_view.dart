@@ -6,8 +6,6 @@ import 'package:gpluseclinicapp/model/disease/disease.dart';
 import 'package:gpluseclinicapp/service/gplusapi.dart';
 import 'package:gpluseclinicapp/view/detalis_dr.dart';
 import 'package:gpluseclinicapp/view/detalis_hos.dart';
-import 'package:gpluseclinicapp/view_models/list_of_hos_dr_cl.dart';
-import 'package:provider/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
