@@ -39,6 +39,7 @@ class MyApp extends StatelessWidget {
         title: 'News',
         theme: ThemeData(
           scaffoldBackgroundColor: Color(0xffFEFDFD),
+          fontFamily: 'Tahoma',
           appBarTheme: AppBarTheme(
             color: Color(0xffFEFDFD),
             elevation: 0,

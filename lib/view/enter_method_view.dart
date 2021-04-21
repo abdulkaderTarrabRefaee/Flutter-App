@@ -3,7 +3,9 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gpluseclinicapp/view/Login_view.dart';
 import 'package:gpluseclinicapp/view/home_view.dart';
+import 'package:gpluseclinicapp/view/regstier_view.dart';
 class EnterView extends StatefulWidget {
   @override
   _EnterViewState createState() => _EnterViewState();
@@ -41,7 +43,7 @@ class _EnterViewState extends State<EnterView> {
 
                     onTap: (){
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (BuildContext context) => HomeView()));
+                          builder: (BuildContext context) => LoginView()));
                     }, child: Container(
                     width:300 ,
                     height: 51,
@@ -72,7 +74,7 @@ class _EnterViewState extends State<EnterView> {
 
                     onTap: (){
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (BuildContext context) => HomeView()));
+                          builder: (BuildContext context) => RegisterView()));
                     }, child: Container(
                     width:300 ,
                     height: 51,

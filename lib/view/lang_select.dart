@@ -14,6 +14,7 @@ class _LangViewState extends State<LangView> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
+
         body:Container(
       decoration: BoxDecoration(
         image: DecorationImage(

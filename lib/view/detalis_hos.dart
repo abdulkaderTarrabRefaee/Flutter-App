@@ -45,13 +45,6 @@ class _DetailedProfileHosState extends State<DetailedProfileHos> {
   @override
   // ignore: must_call_super
   void initState() {
-    Stream.fromFuture(GplusApi().fetchProfileHosData(
-            widget.hospitalDoctorClinic, widget.hospitalDoctorClinic.type))
-        .listen((event) {
-      parntid=event.profile.datas.first.parentId;
-      print(parntid);
-      return (event.profile.datas.first.parentId);
-    });
   }
 
   @override
