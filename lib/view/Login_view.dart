@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gpluseclinicapp/custom_icon.dart';
+import 'package:gpluseclinicapp/model/user/user_login.dart';
+import 'package:gpluseclinicapp/service/gplusapi.dart';
 import 'package:gpluseclinicapp/view/home_view.dart';
 import 'package:gpluseclinicapp/view/regstier_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class LoginView extends StatefulWidget {
   @override
@@ -11,6 +15,11 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   final _formKey = GlobalKey<FormState>();
+  String emailController="" ;
+  String passController="" ;
+  String token="";
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,7 +131,9 @@ class _LoginViewState extends State<LoginView> {
                           scrollPadding: EdgeInsets.symmetric(
                               vertical: 20.0, horizontal: 30.0),
                           onChanged: (value) {
-                            //Do something with the user input.
+                            setState(() {
+                              emailController=value;
+                            });
                           },
                           decoration: InputDecoration(
                             suffixIcon: Icon(
@@ -160,7 +171,9 @@ class _LoginViewState extends State<LoginView> {
                           scrollPadding: EdgeInsets.symmetric(
                               vertical: 20.0, horizontal: 30.0),
                           onChanged: (value) {
-                            //Do something with the user input.
+                            setState(() {
+                              passController=value;
+                            });
                           },
                           decoration: InputDecoration(
                             suffixIcon: Icon(
@@ -219,10 +232,35 @@ class _LoginViewState extends State<LoginView> {
                         padding: const EdgeInsets.all(5.0),
                         child: InkWell(
                             onTap: () {
-                              Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          HomeView()));
+                              setState(() {
+                                UserLogin userLogin =new UserLogin(
+                                  email: emailController,
+                                  password: passController,
+                                  returnUrl: ""
+                                    ,externalLogins: false,
+                                  isGuest: true
+                                );
+                                Stream.fromFuture(GplusApi().LoginPost(userLogin))
+                                    .listen((event) async {
+
+                                      print(event.data.token);
+                                      token=event.data.token;
+                                      if(token!="") {
+                                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                                        prefs.setString('token', token);
+                                        Navigator.of(context).pushReplacement(
+                                            MaterialPageRoute(
+                                                builder: (
+                                                    BuildContext context) =>
+                                                    HomeView()));
+                                      }
+                                      else print("pass error");
+                                  return (event.data.token);
+                                });
+
+                              });
+
+
                             },
                             child: Container(
                                 width: 325,

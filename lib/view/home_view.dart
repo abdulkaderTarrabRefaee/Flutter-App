@@ -13,6 +13,8 @@ import 'package:gpluseclinicapp/view_models/list_of_city_view_model.dart';
 import 'package:searchable_dropdown/searchable_dropdown.dart';
 
 class HomeView extends StatefulWidget {
+  HomeView();
+
   @override
   _HomeViewState createState() => _HomeViewState();
 }
@@ -36,6 +38,7 @@ class _HomeViewState extends State<HomeView> {
     Provider.of<DiseaseListViewModel>(context, listen: false).fetchDisease();
     Provider.of<HospitalDoctorClinicViewModel>(context, listen: false);
     Provider.of<ExpertisesViewModel>(context, listen: false).fetchExpertises();
+    print("home");
 
   }
 

@@ -8,6 +8,7 @@ import 'package:gpluseclinicapp/model/disease/disease.dart';
 import 'package:gpluseclinicapp/model/disease/diseas_list.dart';
 import 'package:gpluseclinicapp/model/profile2/profileDoc.dart';
 import 'package:gpluseclinicapp/model/profile2/profileHos.dart';
+import 'package:gpluseclinicapp/model/user/user_login.dart';
 import 'package:http/http.dart' as http;
 import 'package:gpluseclinicapp/model/city/city_list.dart';
 //2 for en ,, 3 for ar
@@ -16,10 +17,10 @@ final String lang = "2";
 
 class GplusApi {
   final String apiKey = 'd8e093f3-9a0f-489e-87b8-12a892320900';
-  final String url = 'http://api.gplusclinic.com/api/homepage/' + lang;
+  final String baseUrl='api.gplusclinic.com';
   fetchCity() async {
     try {
-      http.Response response = await http.get(url, headers: {
+      http.Response response = await http.get(Uri.http(baseUrl, 'api/homepage/'+ lang), headers: {
         'Apikey': apiKey,
         'Connection': 'keep-alive',
         'Accept-Encoding': 'gzip, deflate, br',
@@ -42,7 +43,7 @@ class GplusApi {
 
   fetchDisease() async {
     try {
-      http.Response response = await http.get(url, headers: {
+      http.Response response = await http.get(Uri.http(baseUrl, 'api/homepage/'+ lang), headers: {
         'Apikey': apiKey,
         'Connection': 'keep-alive',
         'Accept-Encoding': 'gzip, deflate, br',
@@ -94,7 +95,7 @@ class GplusApi {
     } else
       disease = dropdownDiseaseSelected.group_id.toLowerCase();
 
-    String searchUrl = 'http://api.gplusclinic.com/api/SearchPage?city=' +
+    String searchUrl = 'api/SearchPage?city=' +
         city +
         '&page=' +
         pageNamber.toString() +
@@ -102,12 +103,13 @@ class GplusApi {
         disease +
         '&type=' +
         conBoolToInt(typeSelected).toString();
-    http.Response response = await http.get(searchUrl, headers: {
+    http.Response response = await http.get(Uri.http(baseUrl, searchUrl), headers: {
       'Apikey': apiKey,
       'Connection': 'keep-alive',
       'Accept-Encoding': 'gzip, deflate, br',
       'Accept': '*/*',
     });
+    print(Uri.http(baseUrl, searchUrl));
     if (response.statusCode == 200) {
       String data = response.body;
       var jsonData = jsonDecode(data);
@@ -125,8 +127,8 @@ class GplusApi {
 
   fetchDataSearchExpertises() async {
     String searchUrl =
-        'http://api.gplusclinic.com/api/SearchPage?city=&page=1&medicalUnit=&type=0';
-    http.Response response = await http.get(searchUrl, headers: {
+        '/api/SearchPage?city=&page=1&medicalUnit=&type=0';
+    http.Response response = await http.get(Uri.http(baseUrl, searchUrl), headers: {
       'Apikey': apiKey,
       'Connection': 'keep-alive',
       'Accept-Encoding': 'gzip, deflate, br',
@@ -148,14 +150,14 @@ class GplusApi {
 
   Future<ProfileDoc>  fetchProfileDocData(
       HospitalDoctorClinic hospitalDoctorClinic, int type) async {
-    String searchUrl = 'http://api.gplusclinic.com/api/ProfilePage/' +
+    String searchUrl = baseUrl +
         hospitalDoctorClinic.link +
         ' /' +
         type.toString()+
         '/' +
         lang.toString() +
         '';
-    http.Response response = await http.get(searchUrl, headers: {
+    http.Response response = await http.get(Uri.http(baseUrl, searchUrl), headers: {
       'Apikey': apiKey,
       'Connection': 'keep-alive',
       'Accept-Encoding': 'gzip, deflate, br',
@@ -175,14 +177,14 @@ class GplusApi {
   }
   Future<ProfileHos>  fetchProfileHosData(
       HospitalDoctorClinic hospitalDoctorClinic, int type) async {
-    String searchUrl = 'http://api.gplusclinic.com/api/ProfilePage/' +
+    String searchUrl = '/api/ProfilePage/' +
         hospitalDoctorClinic.link +
         ' /' +
         type.toString()+
         '/' +
         lang.toString() +
         '';
-    http.Response response = await http.get(searchUrl, headers: {
+    http.Response response = await http.get(Uri.http(baseUrl, searchUrl), headers: {
       'Apikey': apiKey,
       'Connection': 'keep-alive',
       'Accept-Encoding': 'gzip, deflate, br',
@@ -203,7 +205,7 @@ class GplusApi {
 
   Future<Staff>  fetchStaffData(
       int parntId, int type,int page,String search) async {
-    String searchUrl = 'http://api.gplusclinic.com/api/ProfilePage/' +
+    String searchUrl = '/api/ProfilePage/' +
         lang +
         '/' +
         parntId.toString()+
@@ -213,7 +215,7 @@ class GplusApi {
         '/' +
         page.toString()+
         '/'+ search;
-    http.Response response = await http.get(searchUrl, headers: {
+    http.Response response = await http.get(Uri.http(baseUrl, searchUrl), headers: {
       'Apikey': apiKey,
       'Connection': 'keep-alive',
       'Accept-Encoding': 'gzip, deflate, br',
@@ -263,21 +265,20 @@ class GplusApi {
       disease = "";
     } else
       disease = dropdownDiseaseSelected.group_id.toLowerCase();
-
-    String searchUrl = 'http://api.gplusclinic.com/api/SearchPage?city=' +
-        city +
-        '&page=' +
-        pageNamber.toString() +
-        '&medicalUnit=' +
-        disease +
-        '&type=' +
-        conBoolToInt(typeSelected).toString();
-    http.Response response = await http.get(searchUrl, headers: {
+    final Map<String, String> queryParameters = <String, String>{
+        'city':city,
+       'page': pageNamber.toString(),
+      'medicalUnit':disease,
+      'type':conBoolToInt(typeSelected).toString()
+    };
+    String cracterUrl = '/api/SearchPage';
+    http.Response response = await http.get(Uri.http(baseUrl, cracterUrl,queryParameters), headers: {
       'Apikey': apiKey,
       'Connection': 'keep-alive',
       'Accept-Encoding': 'gzip, deflate, br',
       'Accept': '*/*',
     });
+    print(Uri.http(baseUrl, cracterUrl,queryParameters));
     if (response.statusCode == 200) {
       String data = response.body;
       var jsonData = jsonDecode(data);
@@ -285,17 +286,17 @@ class GplusApi {
           HospitalDoctorClinicInfo.fromJson(jsonData['content']);
       return contentData;
     } else {
-      print('status code = ${response.statusCode}');
+      print('status coded = ${response.statusCode}');
       return null;
     }
   }
 
   //post form
   appointmentPost(AppointmentPost appointmentPost) async {
-    String url = "http://api.gplusclinic.com/api/appointment";
+    String url = "/api/appointment";
 
     String aa;
-    var response = await http.post(url,
+    var response = await http.post(Uri.http(baseUrl, url),
         headers: {
           'Apikey': apiKey,
           'Connection': 'keep-alive',
@@ -306,4 +307,28 @@ class GplusApi {
         body: aa = json.encode(appointmentPost.toJson()));
     print(response.statusCode);
   }
+  //Login
+
+  Future<ReqUserLogin> LoginPost(UserLogin userLogin) async {
+    String url = "/api/users/authenticate";
+
+    String aa;
+
+    var response = await http.post(Uri.http(baseUrl, url),
+        headers: {
+          'Apikey': apiKey,
+          'Connection': 'keep-alive',
+          'Accept-Encoding': 'gzip, deflate, br',
+          'Accept': '*/*',
+          'Content-Type': 'application/json; charset=UTF-8'
+        },
+        body: json.encode(userLogin.toJson()));
+    String data = response.body;
+    var jsonData = jsonDecode(data);
+    ReqUserLogin reqUserLogin=  ReqUserLogin.fromJson(jsonData);
+    return reqUserLogin;
+  }
 }
+
+
+

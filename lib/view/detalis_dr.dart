@@ -62,7 +62,6 @@ class _DetailedProfileDocState extends State<DetailedProfileDoc> {
                             ),
                           ),
                           if(snapshot.data.profile.data.content != null)
-
                             Container(
                               margin: EdgeInsets.only(top: 15,
                                   bottom: 15,

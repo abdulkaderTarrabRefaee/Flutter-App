@@ -5,7 +5,7 @@ import 'package:gpluseclinicapp/view_models/list_of_hos_dr_cl.dart';
 import 'package:provider/provider.dart';
 import 'package:gpluseclinicapp/view_models/list_of_city_view_model.dart';
 import 'package:gpluseclinicapp/view_models/list_of_disease_view_model.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 void main() => runApp(MultiProvider(
         providers: [
           ChangeNotifierProvider(
@@ -40,22 +40,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           scaffoldBackgroundColor: Color(0xffFEFDFD),
           fontFamily: 'Tahoma',
-          appBarTheme: AppBarTheme(
-            color: Color(0xffFEFDFD),
-            elevation: 0,
-            textTheme: TextTheme(
-              title: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            iconTheme: IconThemeData(
-              color: Colors.black,
-            ),
-            actionsIconTheme: IconThemeData(
-              color: Colors.black,
-            ),
-          ),
+
         ),
         home: SplashScreen());
   }
