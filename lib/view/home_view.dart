@@ -1,10 +1,8 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:gpluseclinicapp/model/city/city.dart';
 import 'package:gpluseclinicapp/model/data_gplus/data_search.dart';
 import 'package:gpluseclinicapp/model/disease/disease.dart';
-import 'package:gpluseclinicapp/service/gplusapi.dart';
 import 'package:gpluseclinicapp/view/search_view.dart';
 import 'package:gpluseclinicapp/view_models/list_of_disease_view_model.dart';
 import 'package:gpluseclinicapp/view_models/list_of_hos_dr_cl.dart';

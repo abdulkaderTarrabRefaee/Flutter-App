@@ -16,6 +16,7 @@ class Splash extends State<SplashScreen>  {
   }
   @override
   Widget build(BuildContext context) {
+
     Timer(
         Duration(seconds: 4),
             () =>

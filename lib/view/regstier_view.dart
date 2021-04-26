@@ -359,7 +359,7 @@ class _RegisterViewState extends State<RegisterView> {
                             padding: const EdgeInsets.all(5.0),
                             child: InkWell(
                                 onTap: () {
-                                  Navigator.of(context).pushReplacement(
+                                  Navigator.of(context).push(
                                       MaterialPageRoute(
                                           builder: (BuildContext context) =>
                                               HomeView()));
@@ -408,7 +408,7 @@ class _RegisterViewState extends State<RegisterView> {
                                 padding: const EdgeInsets.all(5.0),
                                 child: InkWell(
                                     onTap: () {
-                                      Navigator.of(context).pushReplacement(
+                                      Navigator.of(context).push(
                                           MaterialPageRoute(
                                               builder: (BuildContext context) =>
                                                   HomeView()));
@@ -467,7 +467,7 @@ class _RegisterViewState extends State<RegisterView> {
                                 padding: const EdgeInsets.all(5.0),
                                 child: InkWell(
                                     onTap: () {
-                                      Navigator.of(context).pushReplacement(
+                                      Navigator.of(context).push(
                                           MaterialPageRoute(
                                               builder: (BuildContext context) =>
                                                   HomeView()));

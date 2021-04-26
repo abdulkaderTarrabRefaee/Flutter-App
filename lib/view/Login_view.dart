@@ -4,6 +4,7 @@ import 'package:gpluseclinicapp/custom_icon.dart';
 import 'package:gpluseclinicapp/model/user/user_login.dart';
 import 'package:gpluseclinicapp/service/gplusapi.dart';
 import 'package:gpluseclinicapp/view/home_view.dart';
+import 'package:gpluseclinicapp/view/main_view.dart';
 import 'package:gpluseclinicapp/view/regstier_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,11 +24,15 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+      backgroundColor:const Color(0xFF29abe2),
       body: Form(
+
         key: _formKey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Builder(
           builder: (context) => SafeArea(
+
             child: SingleChildScrollView(
               child: Container(
 
@@ -225,7 +230,7 @@ class _LoginViewState extends State<LoginView> {
 
 
                       SizedBox(
-                        height: 200,
+                        height: 160,
                       ),
 
                       Padding(
@@ -248,11 +253,11 @@ class _LoginViewState extends State<LoginView> {
                                       if(token!="") {
                                         SharedPreferences prefs = await SharedPreferences.getInstance();
                                         prefs.setString('token', token);
-                                        Navigator.of(context).pushReplacement(
+                                        Navigator.of(context).push(
                                             MaterialPageRoute(
                                                 builder: (
                                                     BuildContext context) =>
-                                                    HomeView()));
+                                                    MainView()));
                                       }
                                       else print("pass error");
                                   return (event.data.token);
@@ -306,7 +311,7 @@ class _LoginViewState extends State<LoginView> {
                             padding: const EdgeInsets.all(5.0),
                             child: InkWell(
                                 onTap: () {
-                                  Navigator.of(context).pushReplacement(
+                                  Navigator.of(context).push(
                                       MaterialPageRoute(
                                           builder: (BuildContext context) =>
                                               RegisterView()));
@@ -365,10 +370,10 @@ class _LoginViewState extends State<LoginView> {
                             padding: const EdgeInsets.all(5.0),
                             child: InkWell(
                                 onTap: () {
-                                  Navigator.of(context).pushReplacement(
+                                  Navigator.of(context).push(
                                       MaterialPageRoute(
                                           builder: (BuildContext context) =>
-                                              HomeView()));
+                                              MainView()));
                                 },
                                 child: Container(
                                     width: 155,

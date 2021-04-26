@@ -15,6 +15,7 @@ class _LangViewState extends State<LangView> {
   Widget build(BuildContext context) {
     return  Scaffold(
 
+
         body:Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -34,7 +35,7 @@ class _LangViewState extends State<LangView> {
               child: InkWell(
 
                   onTap: (){
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    Navigator.of(context).push(MaterialPageRoute(
                         builder: (BuildContext context) => EnterView()));
                   }, child: Container(
                   width:300 ,
@@ -56,7 +57,7 @@ class _LangViewState extends State<LangView> {
               child: InkWell(
 
                   onTap: (){
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    Navigator.of(context).push(MaterialPageRoute(
                         builder: (BuildContext context) => EnterView()));
                   }, child: Container(
                   width:300 ,
@@ -78,7 +79,7 @@ class _LangViewState extends State<LangView> {
               child: InkWell(
 
                   onTap: (){
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    Navigator.of(context).push(MaterialPageRoute(
                         builder: (BuildContext context) => EnterView()));
                   }, child: Container(
                   width:300 ,
