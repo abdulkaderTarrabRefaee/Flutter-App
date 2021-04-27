@@ -31,20 +31,22 @@ class _EnterViewState extends State<EnterView> {
             children: [
 
               Container(
+                width:  MediaQuery.of(context).size.width-(30*(MediaQuery.of(context).size.width))/100,
                   height:  MediaQuery.of(context).size.height-(83*(MediaQuery.of(context).size.height))/100,
                 child: Image(image: AssetImage(
                     'images/logo.png'))),
 
-              Center(child: Text("Find a Doctor in Turkey Make an Appointment",style:TextStyle(fontSize: 20) ,textAlign:TextAlign.center ,)),
+
+              Center(child: Container(width:MediaQuery.of(context).size.width-(35*(MediaQuery.of(context).size.width))/100,child: Text("Find a Doctor in Turkey Make an Appointment",style:TextStyle(fontSize: 21,fontFamily: 'Tahoma',fontWeight:FontWeight.bold,color:  const Color(0xFF00a99d),height: 1.5) ,textAlign:TextAlign.center ,))),
               Container(
-                  height:  MediaQuery.of(context).size.height-(60*(MediaQuery.of(context).size.height))/100,
+                  height:  MediaQuery.of(context).size.height-(53*(MediaQuery.of(context).size.height))/100,
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
 
                     onTap: (){
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      Navigator.of(context).push(MaterialPageRoute(
                           builder: (BuildContext context) => LoginView()));
                     }, child: Container(
                     width:300 ,
@@ -65,7 +67,7 @@ class _EnterViewState extends State<EnterView> {
                         children: [
                           Icon(Icons.assignment_turned_in,color: Colors.white,),
                           SizedBox(width: 10,),
-                          Text("Sign In ",style:TextStyle(color: Colors.white) ,),
+                          Text("Sign In ",style:TextStyle(color: Colors.white,fontFamily: 'Tahoma',fontSize: 18) ,),
                         ],
                       ),
                     ))),
@@ -75,7 +77,7 @@ class _EnterViewState extends State<EnterView> {
                 child: InkWell(
 
                     onTap: (){
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      Navigator.of(context).push(MaterialPageRoute(
                           builder: (BuildContext context) => RegisterView()));
                     }, child: Container(
                     width:300 ,
@@ -96,7 +98,7 @@ class _EnterViewState extends State<EnterView> {
                         children: [
                           Icon(Icons.add,color: Colors.white,),
                           SizedBox(width: 10,),
-                          Text("Sign Up",style:TextStyle(color: Colors.white) ,),
+                          Text("SIGN UP",style:TextStyle(color: Colors.white,fontFamily: 'Tahoma',fontSize: 18) ,),
                         ],
                       ),
                     ))),
@@ -106,7 +108,7 @@ class _EnterViewState extends State<EnterView> {
                 child: InkWell(
 
                     onTap: (){
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      Navigator.of(context).push(MaterialPageRoute(
                           builder: (BuildContext context) => HomeView()));
                     }, child: Container(
                     width:300 ,
@@ -127,7 +129,7 @@ class _EnterViewState extends State<EnterView> {
                         children: [
                           Icon(Icons.login,color: Colors.white,),
                           SizedBox(width: 10,),
-                          Text("Log in as a user",style:TextStyle(color: Colors.white) ,),
+                          Text("LOG IN AS A USER",style:TextStyle(color: Colors.white,fontFamily: 'Tahoma',fontSize: 18) ,),
                         ],
                       ),
                     ))),

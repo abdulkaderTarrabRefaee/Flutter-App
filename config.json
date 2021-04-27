@@ -1,0 +1,36 @@
+{
+  "name": "",
+  "css_prefix_text": "",
+  "css_use_suffix": false,
+  "hinting": true,
+  "units_per_em": 1000,
+  "ascent": 850,
+  "glyphs": [
+    {
+      "uid": "bc50457410acf467b8b5721240768742",
+      "css": "facebook",
+      "code": 62220,
+      "src": "entypo"
+    },
+    {
+      "uid": "dea534e13f4913abf909c25436fafdc0",
+      "css": "google_plus_g",
+      "code": 61653,
+      "src": "fontawesome5"
+    },
+    {
+      "uid": "38e1bdfce39d1bd3ddc0c33d5aa2b964",
+      "css": "facebook-app-symbol",
+      "code": 59392,
+      "src": "custom_icons",
+      "selected": false,
+      "svg": {
+        "path": "M577.4 1000V543.9H730.5L753.4 366.1H577.4V252.6C577.4 201.1 591.7 166 665.6 166L759.6 166V7C743.4 4.8 687.5 0 622.5 0 486.8 0 393.9 82.8 393.9 235V366.1H240.4V543.9H393.9V1000H577.4Z",
+        "width": 1000
+      },
+      "search": [
+        "facebook-app-symbol"
+      ]
+    }
+  ]
+}

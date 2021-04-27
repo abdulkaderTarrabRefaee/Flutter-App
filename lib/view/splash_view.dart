@@ -26,19 +26,22 @@ class Splash extends State<SplashScreen>  {
         'images/logo.png'); //<- Creates an object that fetches an image.
     var image = new Image(
         image: assetsImage,
-        width: 200,); //<- Creates a widget that displays an image.
-    return  Container(
-          width: double.infinity,
-          height:double.infinity ,
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                  colors: [  const Color(0xFF00a99d), const Color(0xFF29abe2)],transform: GradientRotation(35.0))
-          ),
-          child: new Center(
-            child: image,
-          ),
+        width: 250,); //<- Creates a widget that displays an image.
+    return  Scaffold(
+
+      body: Container(
+            width: double.infinity,
+            height:double.infinity ,
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [  const Color(0xFF00a99d), const Color(0xFF29abe2)],transform: GradientRotation(35.0))
+            ),
+            child: new Center(
+              child: image,
+            ),
+      ),
     );
   }
 }

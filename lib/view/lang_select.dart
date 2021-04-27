@@ -28,7 +28,7 @@ class _LangViewState extends State<LangView> {
         child: Center(child: Column(
           children: [
             Container(
-              height: MediaQuery.of(context).size.height-(40*(MediaQuery.of(context).size.height))/100,
+              height: MediaQuery.of(context).size.height-(30*(MediaQuery.of(context).size.height))/100,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
