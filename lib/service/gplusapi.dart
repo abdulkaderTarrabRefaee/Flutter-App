@@ -150,9 +150,9 @@ class GplusApi {
 
   Future<ProfileDoc>  fetchProfileDocData(
       HospitalDoctorClinic hospitalDoctorClinic, int type) async {
-    String searchUrl = baseUrl +
+    String searchUrl ="api/ProfilePage/"+
         hospitalDoctorClinic.link +
-        ' /' +
+        '/' +
         type.toString()+
         '/' +
         lang.toString() +
@@ -163,6 +163,8 @@ class GplusApi {
       'Accept-Encoding': 'gzip, deflate, br',
       'Accept': '*/*',
     });
+    print(Uri.http(baseUrl, searchUrl));
+
     if (response.statusCode == 200) {
 
         String data = response.body;

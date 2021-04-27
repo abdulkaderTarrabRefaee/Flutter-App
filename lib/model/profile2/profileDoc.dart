@@ -77,7 +77,7 @@ class Cities {
 
   bool isSuccess;
   String message;
-  PurpleData data;
+  ProfileData data;
   List<FluffyData> datas;
   int totalRows;
   int pageNumber;
@@ -87,7 +87,7 @@ class Cities {
   factory Cities.fromJson(Map<String, dynamic> json) => Cities(
     isSuccess: json["is_success"],
     message: json["message"],
-    data: json["data"] == null ? null : PurpleData.fromJson(json["data"]),
+    data: json["data"] == null ? null : ProfileData.fromJson(json["data"]),
     datas: json["datas"] == null ? null : List<FluffyData>.from(json["datas"].map((x) => FluffyData.fromJson(x))),
     totalRows: json["total_rows"],
     pageNumber: json["page_number"],
@@ -107,8 +107,8 @@ class Cities {
   };
 }
 
-class PurpleData {
-  PurpleData({
+class ProfileData {
+  ProfileData({
     this.parentId,
     this.name,
     this.address1,
@@ -200,7 +200,7 @@ class PurpleData {
   bool isAward;
   bool isFreeConsultation;
 
-  factory PurpleData.fromJson(Map<String, dynamic> json) => PurpleData(
+  factory ProfileData.fromJson(Map<String, dynamic> json) => ProfileData(
     parentId: json["parent_id"],
     name: json["name"],
     address1: json["address1"],

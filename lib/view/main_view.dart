@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-
 import 'package:flashy_tab_bar/flashy_tab_bar.dart';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gpluseclinicapp/model/city/city.dart';
+import 'package:gpluseclinicapp/model/disease/disease.dart';
+import 'package:gpluseclinicapp/model/profile2/profileDoc.dart';
+import 'package:gpluseclinicapp/view/appointment_view.dart';
+import 'package:gpluseclinicapp/view/search_view.dart';
 void main() => runApp(MainView());
 
 class MainView extends StatefulWidget {
@@ -12,6 +16,15 @@ class MainView extends StatefulWidget {
 class _MainViewState extends State<MainView> {
   int _selectedIndex = 0;
 
+
+  get dropdownCitySelected => null;
+  get dropdownDiseaseSelected => null;
+  ProfileData profile =new ProfileData(
+    type: 2,
+    parentId: 120,
+    link: "/",
+
+  );
   @override
   void initState() {
     super.initState();
@@ -56,10 +69,7 @@ class _MainViewState extends State<MainView> {
                             padding: const EdgeInsets.all(5.0),
                             child: InkWell(
                                 onTap: () {
-                                  Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                          builder: (BuildContext context) =>
-                                              MainView()));
+                                  _getSearch(context,dropdownCitySelected,dropdownDiseaseSelected,[false,true,false,false]);
                                 },
                                 child: Container(
                                     width: 155,
@@ -88,12 +98,15 @@ class _MainViewState extends State<MainView> {
                                       child: Column(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
-                                          Icon(
-                                            Icons.assignment_turned_in,
-                                            color: Colors.white,
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Icon(
+                                              FontAwesomeIcons.userNurse,
+                                              color: Colors.white,
+                                            ),
                                           ),
                                           Text(
-                                            "Log in as a user",
+                                            "Find a Doctor",
                                             style: TextStyle(
                                                 color:  Colors.white,
                                                 fontFamily: 'Tahoma',
@@ -108,10 +121,7 @@ class _MainViewState extends State<MainView> {
                             padding: const EdgeInsets.all(5.0),
                             child: InkWell(
                                 onTap: () {
-                                  Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                          builder: (BuildContext context) =>
-                                              MainView()));
+                                  _getSearch(context,dropdownCitySelected,dropdownDiseaseSelected,[false,false,true,false]);
                                 },
                                 child: Container(
                                     width: 155,
@@ -140,12 +150,130 @@ class _MainViewState extends State<MainView> {
                                       child: Column(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
-                                          Icon(
-                                            Icons.assignment_turned_in,
-                                            color: Colors.white,
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Icon(
+                                              FontAwesomeIcons.hospital,
+                                              color: Colors.white,
+                                            ),
                                           ),
                                           Text(
-                                            "Log in as a user",
+                                            "Find a Hospital",
+                                            style: TextStyle(
+                                                color:  Colors.white,
+                                                fontFamily: 'Tahoma',
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      ),
+                                    ))),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: InkWell(
+                                onTap: () {
+                                  _getSearch(context,dropdownCitySelected,dropdownDiseaseSelected,[false,false,false,true]);
+                                },
+                                child: Container(
+                                    width: 155,
+                                    height: 75,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: const Color(0xFF76b8bd),
+                                            spreadRadius: 1),
+                                      ],
+                                      gradient: LinearGradient(
+                                        stops: [
+                                          0,
+                                          1,
+                                        ],
+                                        begin: Alignment(0, 0),
+                                        end: Alignment(0, -1),
+                                        colors: [
+                                          const Color(0xFF29abe2),
+                                          const Color(0xFF00a99d)
+                                        ],
+                                      ),
+                                    ),
+                                    child: Center(
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Icon(
+                                              FontAwesomeIcons.clinicMedical,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          Text(
+                                            "Find a Clinic",
+                                            style: TextStyle(
+                                                color:  Colors.white,
+                                                fontFamily: 'Tahoma',
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      ),
+                                    ))),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: InkWell(
+                              onTap: (){
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (_) {
+                                    return new AppointmentView(
+                                        profile);
+                                  }),
+                                );
+                              },
+                                child: Container(
+                                    width: 155,
+                                    height: 75,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: const Color(0xFF76b8bd),
+                                            spreadRadius: 1),
+                                      ],
+                                      gradient: LinearGradient(
+                                        stops: [
+                                          0,
+                                          1,
+                                        ],
+                                        begin: Alignment(0, 0),
+                                        end: Alignment(0, -1),
+                                        colors: [
+                                          const Color(0xFF29abe2),
+                                          const Color(0xFF00a99d)
+                                        ],
+                                      ),
+                                    ),
+                                    child: Center(
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Icon(
+                                              FontAwesomeIcons.book,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          Text(
+                                            "Book Appointment",
                                             style: TextStyle(
                                                 color:  Colors.white,
                                                 fontFamily: 'Tahoma',
@@ -197,12 +325,15 @@ class _MainViewState extends State<MainView> {
                                       child: Column(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
-                                          Icon(
-                                            Icons.assignment_turned_in,
-                                            color: Colors.white,
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Icon(
+                                              Icons.info_outline,
+                                              color: Colors.white,
+                                            ),
                                           ),
                                           Text(
-                                            "Log in as a user",
+                                            "About US ",
                                             style: TextStyle(
                                                 color:  Colors.white,
                                                 fontFamily: 'Tahoma',
@@ -250,120 +381,11 @@ class _MainViewState extends State<MainView> {
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
                                           Icon(
-                                            Icons.assignment_turned_in,
+                                            Icons.call,
                                             color: Colors.white,
                                           ),
                                           Text(
-                                            "Log in as a user",
-                                            style: TextStyle(
-                                                color:  Colors.white,
-                                                fontFamily: 'Tahoma',
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ))),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: InkWell(
-                                onTap: () {
-                                  Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                          builder: (BuildContext context) =>
-                                              MainView()));
-                                },
-                                child: Container(
-                                    width: 155,
-                                    height: 75,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color: const Color(0xFF76b8bd),
-                                            spreadRadius: 1),
-                                      ],
-                                      gradient: LinearGradient(
-                                        stops: [
-                                          0,
-                                          1,
-                                        ],
-                                        begin: Alignment(0, 0),
-                                        end: Alignment(0, -1),
-                                        colors: [
-                                          const Color(0xFF29abe2),
-                                          const Color(0xFF00a99d)
-                                        ],
-                                      ),
-                                    ),
-                                    child: Center(
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.assignment_turned_in,
-                                            color: Colors.white,
-                                          ),
-                                          Text(
-                                            "Log in as a user",
-                                            style: TextStyle(
-                                                color:  Colors.white,
-                                                fontFamily: 'Tahoma',
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ))),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: InkWell(
-                                onTap: () {
-                                  Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                          builder: (BuildContext context) =>
-                                              MainView()));
-                                },
-                                child: Container(
-                                    width: 155,
-                                    height: 75,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color: const Color(0xFF76b8bd),
-                                            spreadRadius: 1),
-                                      ],
-                                      gradient: LinearGradient(
-                                        stops: [
-                                          0,
-                                          1,
-                                        ],
-                                        begin: Alignment(0, 0),
-                                        end: Alignment(0, -1),
-                                        colors: [
-                                          const Color(0xFF29abe2),
-                                          const Color(0xFF00a99d)
-                                        ],
-                                      ),
-                                    ),
-                                    child: Center(
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.assignment_turned_in,
-                                            color: Colors.white,
-                                          ),
-                                          Text(
-                                            "Log in as a user",
+                                            "Contact US",
                                             style: TextStyle(
                                                 color:  Colors.white,
                                                 fontFamily: 'Tahoma',
@@ -428,4 +450,11 @@ class _MainViewState extends State<MainView> {
         ),
     );
   }
+}
+void _getSearch(BuildContext context, dropdownCitySelected,
+    dropdownDiseaseSelected, typeSelected) {
+  Navigator.push(context, MaterialPageRoute(builder: (_) {
+    return new SearchView(
+        dropdownCitySelected, dropdownDiseaseSelected, typeSelected);
+  }));
 }

@@ -77,8 +77,7 @@ class _DetailedProfileHosState extends State<DetailedProfileHos> {
 
           title: Text("Hospital Data"),
         ),
-        bottomNavigationBar:BottomNavigationBar(
-        ) ,
+
         body: TabBarView(children: [
           FutureBuilder<ProfileHos>(
               future: GplusApi().fetchProfileHosData(

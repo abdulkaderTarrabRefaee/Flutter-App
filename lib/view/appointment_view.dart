@@ -13,7 +13,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 
 class AppointmentView extends StatefulWidget {
   dynamic profileData;
-  AppointmentView( this.profileData);
+  AppointmentView(this.profileData);
 
   @override
   _AppointmentViewState createState() => _AppointmentViewState();
@@ -35,8 +35,7 @@ class _AppointmentViewState extends State<AppointmentView> {
   String filename;
   Future<http.Response> cas;
   List<String> selectTreatments;
-String selectTreatmentsid="";
-
+  String selectTreatmentsid = "";
 
   @override
   // ignore: must_call_super
@@ -44,9 +43,12 @@ String selectTreatmentsid="";
     filename = "";
     filePicker = [];
     fileIsUp = false;
-for(var tr in widget.profileData.insurances)
-    selectTreatments=[tr.name];
-
+    if (widget.profileData.insurances!=null) {
+      for (var tr in widget.profileData.insurances)
+        selectTreatments = [tr.name];
+    }
+    else
+      selectTreatments=["no","yes"];
   }
 
   @override
@@ -97,13 +99,10 @@ for(var tr in widget.profileData.insurances)
                       label: "Menu mode *",
                       showClearButton: true,
                       onChanged: (value) {
-                        selectTreatmentsid=value;
+                        selectTreatmentsid = value;
                         print(selectTreatmentsid);
-                      }
-                      ,
+                      },
                       selectedItem: selectTreatmentsid,
-
-
                     ),
                   ),
                   //emailController
@@ -111,7 +110,6 @@ for(var tr in widget.profileData.insurances)
                     padding: const EdgeInsets.all(16.0),
                     child: TextField(
                       decoration: InputDecoration(
-
                           labelText: "email", icon: Icon(Icons.email)),
                       keyboardType: TextInputType.emailAddress,
                       controller: emailController,
@@ -207,7 +205,7 @@ for(var tr in widget.profileData.insurances)
                               memberId: 0,
                               message: messageController.text,
                               name: nameController.text,
-                              parentId:widget.profileData.parentId,
+                              parentId: widget.profileData.parentId,
                               phone: numberController.text,
                               profileLink: widget.profileData.link,
                               staffId: 0,
@@ -219,7 +217,7 @@ for(var tr in widget.profileData.insurances)
                               ],
                               type: widget.profileData.type,
                               unitId: "0");
-                           GplusApi().appointmentPost(appointmentPost);
+                          GplusApi().appointmentPost(appointmentPost);
                           Fluttertoast.showToast(
                               msg: "Sent  succesfully",
                               toastLength: Toast.LENGTH_SHORT,
@@ -237,7 +235,6 @@ for(var tr in widget.profileData.insurances)
                       },
                       child: Container(
                           padding: const EdgeInsets.all(8.0),
-
                           child: Text('Send')),
                     ),
                   ),
